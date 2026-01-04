@@ -11,83 +11,56 @@
             --naranja: #E94E1B;
             --blanco: #ffffff;
             --whatsapp: #25D366;
-            --glass: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #000;
+            background-color: var(--blanco);
             overflow-x: hidden;
             color: #333;
         }
 
-        /* Fondo Parallax */
-        .parallax-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%; /* Más alto para el efecto movimiento */
-            background-image: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c63df7fd7c4e37845311cf356a09d466a38773cc/WallPet.png');
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
-            transform: translateY(0);
-            will-change: transform;
-        }
-
-        /* Capa de Partículas */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: rgba(255, 255, 255, 0.3); /* Aclara un poco el fondo para legibilidad */
-        }
-
-        /* Header Estético */
-        header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 10px;
-            text-align: center;
-            border-bottom: 4px solid var(--azul);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo-container img {
-            width: 130px;
-            height: auto;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
+        /* Sección Superior: Limpia con Partículas */
+        .hero-section {
+            position: relative;
             min-height: 80vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
+            background: var(--blanco);
+            z-index: 1;
         }
 
-        /* Tarjeta Glassmorphism para Contenido Principal */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            padding: 40px 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
-        /* Contador */
+        header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .logo-container img {
+            width: 140px;
+            height: auto;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            padding: 20px;
+        }
+
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -101,19 +74,11 @@
             padding: 15px;
             border-radius: 12px;
             min-width: 85px;
+            box-shadow: 0 5px 15px rgba(29,113,184,0.2);
         }
 
-        .time-box span {
-            font-size: 2rem;
-            font-weight: 900;
-            display: block;
-        }
-
-        .time-box label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+        .time-box span { font-size: 2rem; font-weight: 900; display: block; }
+        .time-box label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; }
 
         h1.main-title {
             font-size: 3rem;
@@ -130,7 +95,6 @@
             margin-bottom: 35px;
         }
 
-        /* Botones */
         .button-group {
             display: flex;
             justify-content: center;
@@ -140,44 +104,66 @@
 
         .btn {
             padding: 18px 35px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 900;
             text-decoration: none;
             border-radius: 50px;
             transition: 0.3s;
             text-transform: uppercase;
             min-width: 260px;
+            display: inline-block;
         }
 
         .btn-wa { background: var(--whatsapp); color: white; }
         .btn-forms { background: var(--azul); color: white; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* Sección de Ruta con Glassmorfismo */
-        .ruta-section {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 80px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.5);
+        /* SECCIÓN INFERIOR: PARALLAX Y GLASSMORFISMO */
+        .parallax-wrapper {
+            position: relative;
+            overflow: hidden;
             margin-top: 50px;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            background-image: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c63df7fd7c4e37845311cf356a09d466a38773cc/WallPet.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        .ruta-section {
+            position: relative;
+            background: rgba(255, 255, 255, 0.25); /* Glassmorfismo claro */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 100px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.4);
+            z-index: 1;
         }
 
         .btn-ruta {
             background: var(--naranja);
             color: white;
-            padding: 20px 50px;
+            padding: 20px 60px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
+            box-shadow: 0 8px 25px rgba(233, 78, 27, 0.4);
             transition: 0.3s;
         }
 
         footer {
+            background: rgba(255, 255, 255, 0.9);
             padding: 40px;
-            background: rgba(255,255,255,0.8);
             text-align: center;
             font-size: 0.85rem;
         }
@@ -192,18 +178,16 @@
 </head>
 <body>
 
-    <div class="parallax-bg" id="parallax"></div>
-    
-    <div id="particles-js"></div>
+    <section class="hero-section">
+        <div id="particles-js"></div>
+        
+        <header>
+            <div class="logo-container">
+                <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Logo Vector">
+            </div>
+        </header>
 
-    <header>
-        <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet">
-        </div>
-    </header>
-
-    <main class="hero">
-        <div class="glass-card">
+        <div class="hero-content">
             <div class="countdown-container">
                 <div class="time-box"><span id="days">00</span><label>Días</label></div>
                 <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
@@ -219,12 +203,15 @@
                 <a href="#" class="btn btn-forms">Inscripción Forms</a>
             </div>
         </div>
-    </main>
-
-    <section class="ruta-section">
-        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 1.8rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
-        <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
     </section>
+
+    <div class="parallax-wrapper">
+        <div class="parallax-bg" id="parallax"></div>
+        <section class="ruta-section">
+            <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 2rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
+            <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
+        </section>
+    </div>
 
     <footer>
         <p>Creado por runners y para runners <span class="heart">❤</span></p>
@@ -233,14 +220,17 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // --- EFECTO PARALLAX ---
+        // --- PARALLAX SOLO PARA LA SECCIÓN INFERIOR ---
         window.addEventListener('scroll', function() {
             const parallax = document.getElementById("parallax");
-            let scrollPosition = window.pageYOffset;
-            parallax.style.transform = 'translateY(' + scrollPosition * 0.4 + 'px)';
+            const wrapper = document.querySelector(".parallax-wrapper");
+            let offset = window.pageYOffset - wrapper.offsetTop;
+            if (window.pageYOffset > (wrapper.offsetTop - window.innerHeight)) {
+                parallax.style.transform = 'translateY(' + offset * 0.3 + 'px)';
+            }
         });
 
-        // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
+        // --- CONTADOR ---
         const raceDate = new Date("2026-01-25T08:00:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
@@ -253,15 +243,15 @@
             }
         }, 1000);
 
-        // --- PARTÍCULAS ---
+        // --- PARTÍCULAS (FONDO BLANCO SUPERIOR) ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 80 },
                 "color": { "value": "#1D71B8" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.4 },
+                "opacity": { "value": 0.2 },
                 "size": { "value": 3 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
                 "move": { "enable": true, "speed": 2 }
             },
             "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }
