@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscripciones | Re Corre Pet 2026</title>
+    <style>
+        :root { --azul: #1D71B8; --naranja: #E94E1B; --gris: #f4f4f4; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; color: #333; background: white; }
+        
+        /* Header & Logo */
+        header { padding: 20px; border-bottom: 5px solid var(--azul); }
+        .logo { width: 280px; max-width: 90%; }
+
+        /* Contador Estilo CDMX */
+        .countdown-container { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
+        .time-box { background: #66b2b2; color: white; padding: 15px; border-radius: 15px; min-width: 80px; }
+        .time-box span { font-size: 30px; font-weight: bold; display: block; }
+
+        /* Botones de Inscripción */
+        .inscripciones-title { color: #d63384; font-size: 2.5rem; margin-top: 40px; }
+        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0; }
+        .btn { border: 2px solid var(--azul); color: var(--azul); padding: 15px 40px; border-radius: 8px; 
+                  text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 1.1rem; }
+        .btn:hover { background: var(--azul); color: white; }
+
+        /* Sección Ruta */
+        .ruta-section { margin: 50px 0; padding: 40px; background: var(--gris); }
+        .btn-ruta { background: #d63384; color: white; padding: 18px 50px; border-radius: 30px; 
+                        text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/EdddGaar/recorre/fc836b09df6dc2aac19df210884ec516a3e9c685/PetRecorre.jpeg" class="logo" alt="Re Corre Pet">
+    </header>
+
+    <div class="countdown-container" id="countdown">
+        <div class="time-box"><span id="days">00</span> días</div>
+        <div class="time-box"><span id="hours">00</span> horas</div>
+        <div class="time-box"><span id="minutes">00</span> min</div>
+        <div class="time-box"><span id="seconds">00</span> seg</div>
+    </div>
+
+    <h1 class="inscripciones-title">INSCRIPCIONES</h1>
+
+    <div class="btn-group">
+        <a href="#" class="btn">Inscripciones<br>Nacionales</a>
+        <a href="#" class="btn">Inscripciones<br>Internacionales</a>
+    </div>
+
+    <section class="ruta-section">
+        <h2 style="color: #d63384; font-size: 2rem;">CONOCE LA RUTA</h2>
+        <a href="https://maps.google.com" target="_blank" class="btn-ruta">Ver en Google Maps</a>
+    </section>
+
+    <script>
+        // Configura la fecha de la carrera aquí (Año, Mes-1, Día)
+        const raceDate = new Date("2026-03-15T08:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const diff = raceDate - now;
+
+            if (diff <= 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "¡ES HOY!";
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+    </script>
+</body>
+</html>
