@@ -32,95 +32,93 @@
             background-color: #ffffff;
         }
 
-        /* Header con Logo Estético */
+        /* Header con Logo Vectorizado Pequeño */
         header {
             background: rgba(255, 255, 255, 0.95);
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            border-bottom: 5px solid var(--azul);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-bottom: 4px solid var(--azul);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .logo-container img {
-            width: 200px;
+            width: 140px; /* Tamaño más estético y pequeño */
             height: auto;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s ease;
         }
 
         .logo-container img:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         /* Hero Section */
         .hero {
-            padding: 50px 20px;
+            padding: 40px 20px;
             max-width: 1000px;
             margin: 0 auto;
             text-align: center;
         }
 
-        /* Contador Dinámico */
+        /* Contador */
         .countdown-container {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .time-box {
             background: var(--azul);
             color: white;
-            padding: 18px;
-            border-radius: 15px;
-            min-width: 90px;
-            box-shadow: 0 8px 25px rgba(29, 113, 184, 0.3);
+            padding: 15px;
+            border-radius: 12px;
+            min-width: 85px;
+            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
         }
 
         .time-box span {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             display: block;
             line-height: 1;
         }
 
         .time-box label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             font-weight: 700;
         }
 
         /* Títulos */
         h1.main-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: var(--naranja);
             font-weight: 900;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: -2px;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+            letter-spacing: -1px;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--azul);
             font-weight: 700;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             text-transform: uppercase;
         }
 
-        /* Botones de Acción */
+        /* Botones */
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin: 40px 0;
+            margin: 30px 0;
         }
 
         .btn {
-            padding: 20px 40px;
-            font-size: 1rem;
+            padding: 18px 35px;
+            font-size: 0.95rem;
             font-weight: 900;
             text-decoration: none;
             border-radius: 50px;
@@ -129,65 +127,66 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 280px;
+            min-width: 260px;
         }
 
         .btn-wa {
             background-color: var(--whatsapp);
             color: white;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
         }
 
         .btn-forms {
             background-color: var(--azul);
             color: white;
-            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.3);
+            box-shadow: 0 6px 15px rgba(29, 113, 184, 0.2);
         }
 
         .btn:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* Sección de Ruta */
+        /* Sección de Ruta Centrada */
         .ruta-section {
-            background: #f0f4f8;
-            padding: 70px 20px;
-            border-top-left-radius: 80px;
-            border-top-right-radius: 80px;
+            background: #f4f7f9;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 60px 60px 0 0;
+            margin-top: 20px;
         }
 
         .btn-ruta {
             background: var(--naranja);
             color: white;
-            padding: 22px 60px;
+            padding: 20px 50px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
-            box-shadow: 0 10px 25px rgba(233, 78, 27, 0.4);
+            box-shadow: 0 8px 20px rgba(233, 78, 27, 0.3);
             transition: 0.3s;
         }
 
         .btn-ruta:hover {
-            background: #c53e15;
             transform: scale(1.05);
+            background: #d14416;
         }
 
         footer {
             padding: 40px;
-            background: #f0f4f8;
+            background: #f4f7f9;
+            text-align: center;
             font-size: 0.85rem;
-            color: #777;
-            font-weight: 700;
+            color: #666;
         }
+
+        .heart { color: #e25555; }
 
         /* Responsive */
         @media (max-width: 600px) {
-            h1.main-title { font-size: 2.2rem; }
-            .countdown-container { gap: 8px; }
-            .time-box { min-width: 75px; padding: 12px; }
-            .time-box span { font-size: 1.5rem; }
+            h1.main-title { font-size: 2rem; }
+            .time-box { min-width: 70px; padding: 10px; }
             .btn { width: 100%; }
         }
     </style>
@@ -198,7 +197,7 @@
 
     <header>
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/EdddGaar/recorre/fc836b09df6dc2aac19df210884ec516a3e9c685/PetRecorre.jpeg" alt="Logo Re Corre Pet">
+            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet Vector">
         </div>
     </header>
 
@@ -211,7 +210,7 @@
         </div>
 
         <h1 class="main-title">Inscripciones</h1>
-        <p class="subtitle">¡Prepara la correa y corre con tu mejor amigo!</p>
+        <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
 
         <div class="button-group">
             <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">
@@ -224,13 +223,13 @@
     </main>
 
     <section class="ruta-section">
-        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 2rem;">¿LISTO PARA EL RETO?</h2>
+        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 1.8rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
         <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
     </section>
 
     <footer>
-        <p>© 2026 RE CORRE RUNNING CLUB TOLUCA</p>
-        <p>RECORRE.CLUB</p>
+        <p>Creado por runners y para runners <span class="heart">❤</span></p>
+        <p style="margin-top: 10px; font-weight: 700;">RECORRE.CLUB</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -238,35 +237,30 @@
         // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
         const raceDate = new Date("2026-01-25T08:00:00").getTime();
 
-        const timer = setInterval(function() {
+        setInterval(function() {
             const now = new Date().getTime();
             const diff = raceDate - now;
-
             if (diff > 0) {
                 document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
                 document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
                 document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                 document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            } else {
-                clearInterval(timer);
-                document.querySelector(".countdown-container").innerHTML = "<h2 style='color:var(--azul);'>¡LA CARRERA HA COMENZADO!</h2>";
             }
         }, 1000);
 
-        // --- CONFIGURACIÓN DE PARTÍCULAS AZULES ---
+        // --- PARTÍCULAS AZULES ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#1D71B8" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.2, "random": false },
-                "size": { "value": 3, "random": true },
+                "opacity": { "value": 0.2 },
+                "size": { "value": 3 },
                 "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
-                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+                "move": { "enable": true, "speed": 1.5 }
             },
             "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
-                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
+                "events": { "onhover": { "enable": true, "mode": "grab" } }
             },
             "retina_detect": true
         });
