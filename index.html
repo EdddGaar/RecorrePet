@@ -10,53 +10,81 @@
             --azul: #1D71B8;
             --naranja: #E94E1B;
             --blanco: #ffffff;
-            --fondo: #fcfcfc;
             --whatsapp: #25D366;
+            --glass: rgba(255, 255, 255, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--fondo);
+            background-color: #000;
             overflow-x: hidden;
             color: #333;
         }
 
-        /* Fondo de Partículas */
+        /* Fondo Parallax */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; /* Más alto para el efecto movimiento */
+            background-image: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c63df7fd7c4e37845311cf356a09d466a38773cc/WallPet.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        /* Capa de Partículas */
         #particles-js {
             position: fixed;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-color: #ffffff;
+            background: rgba(255, 255, 255, 0.3); /* Aclara un poco el fondo para legibilidad */
         }
 
-        /* Header con Logo Vectorizado Pequeño */
+        /* Header Estético */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             padding: 10px;
             text-align: center;
             border-bottom: 4px solid var(--azul);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-container img {
-            width: 140px; /* Tamaño más estético y pequeño */
+            width: 130px;
             height: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: scale(1.05);
         }
 
         /* Hero Section */
         .hero {
-            padding: 40px 20px;
+            padding: 60px 20px;
             max-width: 1000px;
             margin: 0 auto;
             text-align: center;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Tarjeta Glassmorphism para Contenido Principal */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 40px 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         /* Contador */
@@ -73,14 +101,12 @@
             padding: 15px;
             border-radius: 12px;
             min-width: 85px;
-            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
         }
 
         .time-box span {
             font-size: 2rem;
             font-weight: 900;
             display: block;
-            line-height: 1;
         }
 
         .time-box label {
@@ -89,14 +115,12 @@
             font-weight: 700;
         }
 
-        /* Títulos */
         h1.main-title {
             font-size: 3rem;
             color: var(--naranja);
             font-weight: 900;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: -1px;
         }
 
         .subtitle {
@@ -104,7 +128,6 @@
             color: var(--azul);
             font-weight: 700;
             margin-bottom: 35px;
-            text-transform: uppercase;
         }
 
         /* Botones */
@@ -113,47 +136,32 @@
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin: 30px 0;
         }
 
         .btn {
             padding: 18px 35px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 900;
             text-decoration: none;
             border-radius: 50px;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             min-width: 260px;
         }
 
-        .btn-wa {
-            background-color: var(--whatsapp);
-            color: white;
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
-        }
+        .btn-wa { background: var(--whatsapp); color: white; }
+        .btn-forms { background: var(--azul); color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        .btn-forms {
-            background-color: var(--azul);
-            color: white;
-            box-shadow: 0 6px 15px rgba(29, 113, 184, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        /* Sección de Ruta Centrada */
+        /* Sección de Ruta con Glassmorfismo */
         .ruta-section {
-            background: #f4f7f9;
-            padding: 60px 20px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 80px 20px;
             text-align: center;
-            border-radius: 60px 60px 0 0;
-            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.5);
+            margin-top: 50px;
         }
 
         .btn-ruta {
@@ -164,61 +172,52 @@
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
-            box-shadow: 0 8px 20px rgba(233, 78, 27, 0.3);
             transition: 0.3s;
-        }
-
-        .btn-ruta:hover {
-            transform: scale(1.05);
-            background: #d14416;
         }
 
         footer {
             padding: 40px;
-            background: #f4f7f9;
+            background: rgba(255,255,255,0.8);
             text-align: center;
             font-size: 0.85rem;
-            color: #666;
         }
 
         .heart { color: #e25555; }
 
-        /* Responsive */
         @media (max-width: 600px) {
             h1.main-title { font-size: 2rem; }
-            .time-box { min-width: 70px; padding: 10px; }
             .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
+    <div class="parallax-bg" id="parallax"></div>
+    
     <div id="particles-js"></div>
 
     <header>
         <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet Vector">
+            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet">
         </div>
     </header>
 
     <main class="hero">
-        <div class="countdown-container">
-            <div class="time-box"><span id="days">00</span><label>Días</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
-            <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
-            <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
-        </div>
+        <div class="glass-card">
+            <div class="countdown-container">
+                <div class="time-box"><span id="days">00</span><label>Días</label></div>
+                <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+                <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
+                <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+            </div>
 
-        <h1 class="main-title">Inscripciones</h1>
-        <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
+            <h1 class="main-title">Inscripciones</h1>
+            <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
 
-        <div class="button-group">
-            <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">
-                Inscripción WhatsApp
-            </a>
-            <a href="#" id="link-forms" class="btn btn-forms">
-                Inscripción Forms
-            </a>
+            <div class="button-group">
+                <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">WhatsApp</a>
+                <a href="#" class="btn btn-forms">Inscripción Forms</a>
+            </div>
         </div>
     </main>
 
@@ -234,9 +233,15 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // --- EFECTO PARALLAX ---
+        window.addEventListener('scroll', function() {
+            const parallax = document.getElementById("parallax");
+            let scrollPosition = window.pageYOffset;
+            parallax.style.transform = 'translateY(' + scrollPosition * 0.4 + 'px)';
+        });
+
         // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
         const raceDate = new Date("2026-01-25T08:00:00").getTime();
-
         setInterval(function() {
             const now = new Date().getTime();
             const diff = raceDate - now;
@@ -248,21 +253,18 @@
             }
         }, 1000);
 
-        // --- PARTÍCULAS AZULES ---
+        // --- PARTÍCULAS ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#1D71B8" },
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.2 },
+                "opacity": { "value": 0.4 },
                 "size": { "value": 3 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
-                "move": { "enable": true, "speed": 1.5 }
+                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2 }
             },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" } }
-            },
-            "retina_detect": true
+            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }
         });
     </script>
 </body>
