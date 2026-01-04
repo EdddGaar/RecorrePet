@@ -4,76 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscripciones | Re Corre Pet 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --azul: #1D71B8; --naranja: #E94E1B; --gris: #f4f4f4; }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; color: #333; background: white; }
-        
-        /* Header & Logo */
-        header { padding: 20px; border-bottom: 5px solid var(--azul); }
-        .logo { width: 280px; max-width: 90%; }
+        :root {
+            --azul: #1D71B8;
+            --naranja: #E94E1B;
+            --blanco: #ffffff;
+            --fondo: #fcfcfc;
+            --whatsapp: #25D366;
+        }
 
-        /* Contador Estilo CDMX */
-        .countdown-container { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
-        .time-box { background: #66b2b2; color: white; padding: 15px; border-radius: 15px; min-width: 80px; }
-        .time-box span { font-size: 30px; font-weight: bold; display: block; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Botones de Inscripción */
-        .inscripciones-title { color: #d63384; font-size: 2.5rem; margin-top: 40px; }
-        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0; }
-        .btn { border: 2px solid var(--azul); color: var(--azul); padding: 15px 40px; border-radius: 8px; 
-                  text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 1.1rem; }
-        .btn:hover { background: var(--azul); color: white; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--fondo);
+            overflow-x: hidden;
+            color: #333;
+        }
 
-        /* Sección Ruta */
-        .ruta-section { margin: 50px 0; padding: 40px; background: var(--gris); }
-        .btn-ruta { background: #d63384; color: white; padding: 18px 50px; border-radius: 30px; 
-                        text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+        /* Fondo de Partículas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #ffffff;
+        }
+
+        /* Header con Logo Estético */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 5px solid var(--azul);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .logo-container img {
+            width: 200px;
+            height: auto;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .logo-container img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Contador Dinámico */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .time-box {
+            background: var(--azul);
+            color: white;
+            padding: 18px;
+            border-radius: 15px;
+            min-width: 90px;
+            box-shadow: 0 8px 25px rgba(29, 113, 184, 0.3);
+        }
+
+        .time-box span {
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+        }
+
+        .time-box label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        /* Títulos */
+        h1.main-title {
+            font-size: 3.5rem;
+            color: var(--naranja);
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--azul);
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        /* Botones de Acción */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .btn {
+            padding: 20px 40px;
+            font-size: 1rem;
+            font-weight: 900;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 280px;
+        }
+
+        .btn-wa {
+            background-color: var(--whatsapp);
+            color: white;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-forms {
+            background-color: var(--azul);
+            color: white;
+            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Sección de Ruta */
+        .ruta-section {
+            background: #f0f4f8;
+            padding: 70px 20px;
+            border-top-left-radius: 80px;
+            border-top-right-radius: 80px;
+        }
+
+        .btn-ruta {
+            background: var(--naranja);
+            color: white;
+            padding: 22px 60px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 900;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(233, 78, 27, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-ruta:hover {
+            background: #c53e15;
+            transform: scale(1.05);
+        }
+
+        footer {
+            padding: 40px;
+            background: #f0f4f8;
+            font-size: 0.85rem;
+            color: #777;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1.main-title { font-size: 2.2rem; }
+            .countdown-container { gap: 8px; }
+            .time-box { min-width: 75px; padding: 12px; }
+            .time-box span { font-size: 1.5rem; }
+            .btn { width: 100%; }
+        }
     </style>
 </head>
 <body>
 
+    <div id="particles-js"></div>
+
     <header>
-        <img src="https://raw.githubusercontent.com/EdddGaar/recorre/fc836b09df6dc2aac19df210884ec516a3e9c685/PetRecorre.jpeg" class="logo" alt="Re Corre Pet">
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/EdddGaar/recorre/fc836b09df6dc2aac19df210884ec516a3e9c685/PetRecorre.jpeg" alt="Logo Re Corre Pet">
+        </div>
     </header>
 
-    <div class="countdown-container" id="countdown">
-        <div class="time-box"><span id="days">00</span> días</div>
-        <div class="time-box"><span id="hours">00</span> horas</div>
-        <div class="time-box"><span id="minutes">00</span> min</div>
-        <div class="time-box"><span id="seconds">00</span> seg</div>
-    </div>
+    <main class="hero">
+        <div class="countdown-container">
+            <div class="time-box"><span id="days">00</span><label>Días</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+        </div>
 
-    <h1 class="inscripciones-title">INSCRIPCIONES</h1>
+        <h1 class="main-title">Inscripciones</h1>
+        <p class="subtitle">¡Prepara la correa y corre con tu mejor amigo!</p>
 
-    <div class="btn-group">
-        <a href="#" class="btn">Inscripciones<br>Nacionales</a>
-        <a href="#" class="btn">Inscripciones<br>Internacionales</a>
-    </div>
+        <div class="button-group">
+            <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">
+                Inscripción WhatsApp
+            </a>
+            <a href="#" id="link-forms" class="btn btn-forms">
+                Inscripción Forms
+            </a>
+        </div>
+    </main>
 
     <section class="ruta-section">
-        <h2 style="color: #d63384; font-size: 2rem;">CONOCE LA RUTA</h2>
-        <a href="https://maps.google.com" target="_blank" class="btn-ruta">Ver en Google Maps</a>
+        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 2rem;">¿LISTO PARA EL RETO?</h2>
+        <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
     </section>
 
+    <footer>
+        <p>© 2026 RE CORRE RUNNING CLUB TOLUCA</p>
+        <p>RECORRE.CLUB</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Configura la fecha de la carrera aquí (Año, Mes-1, Día)
-        const raceDate = new Date("2026-03-15T08:00:00").getTime();
+        // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
+        const raceDate = new Date("2026-01-25T08:00:00").getTime();
 
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const diff = raceDate - now;
 
-            if (diff <= 0) {
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            } else {
                 clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "¡ES HOY!";
-                return;
+                document.querySelector(".countdown-container").innerHTML = "<h2 style='color:var(--azul);'>¡LA CARRERA HA COMENZADO!</h2>";
             }
-
-            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
+
+        // --- CONFIGURACIÓN DE PARTÍCULAS AZULES ---
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 90, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#1D71B8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.2, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } } }
+            },
+            "retina_detect": true
+        });
     </script>
 </body>
 </html>
