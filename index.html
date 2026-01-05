@@ -1,269 +1,480 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripciones | Re Corre Pet 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --azul: #1D71B8;
-            --naranja: #E94E1B;
-            --blanco: #ffffff;
-            --fondo: #fcfcfc;
-            --whatsapp: #25D366;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <title>Inscripciones | Re Corre Pet 2026</title>
+  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 y vive una experiencia pet-friendly." />
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--fondo);
-            overflow-x: hidden;
-            color: #333;
-        }
+  <!-- Open Graph / Social sharing (ajusta og:image cuando tengas una imagen de compartir en tu dominio) -->
+  <meta property="og:title" content="Inscripciones | Re Corre Pet 2026" />
+  <meta property="og:description" content="Corre con tu mejor amigo en Toluca. Inscripción por WhatsApp o Forms." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_MX" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-        /* Fondo de Partículas */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-color: #ffffff;
-        }
+  <!-- Fonts (rendimiento) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
 
-        /* Header con Logo Vectorizado Pequeño */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px;
-            text-align: center;
-            border-bottom: 4px solid var(--azul);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+  <style>
+    :root {
+      --azul: #1D71B8;
+      --naranja: #E94E1B;
+      --blanco: #ffffff;
+      --fondo: #fcfcfc;
+      --whatsapp: #25D366;
 
-        .logo-container img {
-            width: 140px; /* Tamaño más estético y pequeño */
-            height: auto;
-            transition: transform 0.3s ease;
-        }
+      --shadow-sm: 0 4px 15px rgba(0,0,0,0.05);
+      --shadow-md: 0 8px 20px rgba(29, 113, 184, 0.2);
+      --radius-lg: 12px;
+      --radius-pill: 50px;
+    }
 
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Hero Section */
-        .hero {
-            padding: 40px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--fondo);
+      overflow-x: hidden;
+      color: #333;
+    }
 
-        /* Contador */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
+    /* Fondo de Partículas */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-color: #ffffff;
+    }
 
-        .time-box {
-            background: var(--azul);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            min-width: 85px;
-            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
-        }
+    /* Header (Hero Image) con profundidad + parallax */
+    .hero-image {
+      position: relative;
+      height: 260px;
+      max-height: 38vh;
+      overflow: hidden;
+      border-bottom: 4px solid var(--azul);
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+      transform: translateZ(0);
+    }
 
-        .time-box span {
-            font-size: 2rem;
-            font-weight: 900;
-            display: block;
-            line-height: 1;
-        }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: translate3d(0, var(--parallaxY, 0px), 0) scale(1.04);
+      will-change: transform;
+      filter: saturate(1.05) contrast(1.03);
+    }
 
-        .time-box label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.22) 0%,
+        rgba(0,0,0,0.10) 35%,
+        rgba(255,255,255,0.0) 60%,
+        rgba(255,255,255,0.55) 100%
+      );
+    }
 
-        /* Títulos */
-        h1.main-title {
-            font-size: 3rem;
-            color: var(--naranja);
-            font-weight: 900;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,0.25), rgba(255,255,255,0) 55%);
+      mix-blend-mode: soft-light;
+      opacity: 0.9;
+    }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--azul);
-            font-weight: 700;
-            margin-bottom: 35px;
-            text-transform: uppercase;
-        }
+    @media (max-width: 600px) {
+      .hero-image { height: 170px; max-height: 28vh; }
+    }
 
-        /* Botones */
-        .button-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
 
-        .btn {
-            padding: 18px 35px;
-            font-size: 0.95rem;
-            font-weight: 900;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 260px;
-        }
+    
 
-        .btn-wa {
-            background-color: var(--whatsapp);
-            color: white;
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
-        }
+    .logo-container img:hover { transform: scale(1.05); }
 
-        .btn-forms {
-            background-color: var(--azul);
-            color: white;
-            box-shadow: 0 6px 15px rgba(29, 113, 184, 0.2);
-        }
+    /* Hero */
+    .hero {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      min-height: 60vh;
+    }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+    /* Contador */
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
 
-        /* Sección de Ruta Centrada */
-        .ruta-section {
-            background: #f4f7f9;
-            padding: 60px 20px;
-            text-align: center;
-            border-radius: 60px 60px 0 0;
-            margin-top: 20px;
-        }
+    .time-box {
+      background: var(--azul);
+      color: white;
+      padding: 15px;
+      border-radius: var(--radius-lg);
+      min-width: 85px;
+      box-shadow: var(--shadow-md);
+    }
 
-        .btn-ruta {
-            background: var(--naranja);
-            color: white;
-            padding: 20px 50px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 900;
-            display: inline-block;
-            box-shadow: 0 8px 20px rgba(233, 78, 27, 0.3);
-            transition: 0.3s;
-        }
+    .time-box span {
+      font-size: 2rem;
+      font-weight: 900;
+      display: block;
+      line-height: 1;
+    }
 
-        .btn-ruta:hover {
-            transform: scale(1.05);
-            background: #d14416;
-        }
+    .time-box label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
 
-        footer {
-            padding: 40px;
-            background: #f4f7f9;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #666;
-        }
+    /* Títulos */
+    h1.main-title {
+      font-size: 3rem;
+      color: var(--naranja);
+      font-weight: 900;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
 
-        .heart { color: #e25555; }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--azul);
+      font-weight: 700;
+      margin-bottom: 35px;
+      text-transform: uppercase;
+    }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1.main-title { font-size: 2rem; }
-            .time-box { min-width: 70px; padding: 10px; }
-            .btn { width: 100%; }
-        }
-    </style>
+    /* Botones */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .btn {
+      padding: 18px 35px;
+      font-size: 0.95rem;
+      font-weight: 900;
+      text-decoration: none;
+      border-radius: var(--radius-pill);
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 260px;
+      border: 0;
+    }
+
+    .btn-wa {
+      background-color: var(--whatsapp);
+      color: white;
+      box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
+    }
+
+    .btn-forms {
+      background-color: var(--azul);
+      color: white;
+      box-shadow: 0 6px 15px rgba(29, 113, 184, 0.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn:focus-visible, .btn-ruta:focus-visible {
+      outline: 3px solid rgba(29,113,184,.5);
+      outline-offset: 3px;
+    }
+
+    .is-disabled {
+      opacity: .6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Sección Ruta */
+    .ruta-section {
+      background: #f4f7f9;
+      padding: 60px 20px;
+      text-align: center;
+      border-radius: 60px 60px 0 0;
+      margin-top: 20px;
+    }
+
+    .ruta-title {
+      margin-bottom: 25px;
+      color: var(--azul);
+      font-weight: 900;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+    }
+
+    .btn-ruta {
+      background: var(--naranja);
+      color: white;
+      padding: 20px 50px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      font-weight: 900;
+      display: inline-block;
+      box-shadow: 0 8px 20px rgba(233, 78, 27, 0.3);
+      transition: 0.3s;
+    }
+
+    .btn-ruta:hover {
+      transform: scale(1.05);
+      background: #d14416;
+    }
+
+    footer {
+      padding: 40px;
+      background: #f4f7f9;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .heart { color: #e25555; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1.main-title { font-size: 2rem; }
+      .time-box { min-width: 70px; padding: 10px; }
+      .time-box label { font-size: 0.65rem; }
+      .btn { width: 100%; }
+    }
+
+    /* Respeta preferencias de movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      #particles-js { display: none; }
+      .hero-image img { transform: none !important; }
+      * { scroll-behavior: auto; }
+    }
+    }
+  </style>
 </head>
 <body>
+  <div id="particles-js" aria-hidden="true"></div>
 
-    <div id="particles-js"></div>
+  <header class="hero-image">
+    <img
+      src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png"
+      alt="Re Corre Pet 2026"
+      loading="eager"
+      decoding="async"
+    />
+  </header>
 
-    <header>
-        <div class="logo-container">
-            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet Vector">
-        </div>
-    </header>
+  <main class="hero">
+    <div class="countdown-container" aria-label="Cuenta regresiva al evento">
+      <div class="time-box"><span id="days">00</span><label>Días</label></div>
+      <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+      <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
+      <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+    </div>
 
-    <main class="hero">
-        <div class="countdown-container">
-            <div class="time-box"><span id="days">00</span><label>Días</label></div>
-            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
-            <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
-            <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
-        </div>
+    <h1 class="main-title">Inscripciones</h1>
+    <p class="subtitle" id="subtitle">Corre con tu mejor amigo 🐶 en Toluca</p>
 
-        <h1 class="main-title">Inscripciones</h1>
-        <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
+    <div class="button-group">
+      <a
+        href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20%F0%9F%90%BE"
+        class="btn btn-wa"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Inscribirme por WhatsApp"
+      >
+        Inscripción WhatsApp
+      </a>
 
-        <div class="button-group">
-            <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">
-                Inscripción WhatsApp
-            </a>
-            <a href="#" id="link-forms" class="btn btn-forms">
-                Inscripción Forms
-            </a>
-        </div>
-    </main>
+      <a
+        href=""
+        id="link-forms"
+        class="btn btn-forms"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Inscribirme por Google Forms"
+      >
+        Inscripción Forms
+      </a>
+    </div>
+  </main>
 
-    <section class="ruta-section">
-        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 1.8rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
-        <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
-    </section>
+  <section class="ruta-section">
+    <h2 class="ruta-title">¿LISTO PARA EL RETO?</h2>
 
-    <footer>
-        <p>Creado por runners y para runners <span class="heart">❤</span></p>
-        <p style="margin-top: 10px; font-weight: 700;">RECORRE.CLUB</p>
-    </footer>
+    <!-- AJUSTA ESTE LINK al mapa real (pin o ruta). Dejo un ejemplo con coordenadas. -->
+    <a
+      href="https://www.google.com/maps/dir/?api=1&destination=19.2826,-99.6557"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-ruta"
+      aria-label="Ver mapa de la ruta en Google Maps"
+    >
+      VER MAPA DE LA RUTA
+    </a>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
-        const raceDate = new Date("2026-01-25T08:00:00").getTime();
+  <footer>
+    <p>Creado por runners y para runners <span class="heart">❤</span></p>
+    <p style="margin-top: 10px; font-weight: 700;">RECORRE.CLUB</p>
+  </footer>
 
-        setInterval(function() {
-            const now = new Date().getTime();
-            const diff = raceDate - now;
-            if (diff > 0) {
-                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            }
-        }, 1000);
+  <script>
+    // ============================
+    // CONFIG (EDÍTAME)
+    // ============================
 
-        // --- PARTÍCULAS AZULES ---
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#1D71B8" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.2 },
-                "size": { "value": 3 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
-                "move": { "enable": true, "speed": 1.5 }
-            },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "grab" } }
-            },
-            "retina_detect": true
+    // Fecha del evento (Toluca/CDMX). IMPORTANTE: mantener -06:00 para evitar desfases por dispositivo.
+    const RACE_ISO_DATE = "2026-01-25T08:00:00-06:00";
+
+    // Link de Google Forms (pon aquí el real). Si se deja vacío, el botón se desactiva.
+    const FORMS_URL = "";
+
+    // ============================
+    // Lógica Forms
+    // ============================
+
+    const formsBtn = document.getElementById("link-forms");
+    if (FORMS_URL && FORMS_URL.startsWith("http")) {
+      formsBtn.href = FORMS_URL;
+    } else {
+      formsBtn.classList.add("is-disabled");
+      formsBtn.removeAttribute("href");
+      formsBtn.setAttribute("aria-disabled", "true");
+      formsBtn.title = "Inscripción por Forms próximamente";
+    }
+
+    // ============================
+    // Contador
+    // ============================
+
+    const raceDate = new Date(RACE_ISO_DATE).getTime();
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.innerText = value;
+    }
+
+    function updateCountdown() {
+      const diff = raceDate - Date.now();
+
+      if (diff <= 0) {
+        setText("days", "00");
+        setText("hours", "00");
+        setText("minutes", "00");
+        setText("seconds", "00");
+
+        const subtitle = document.getElementById("subtitle");
+        if (subtitle) subtitle.innerText = "El evento ya comenzó o ya terminó";
+
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setText("days", String(days).padStart(2, "0"));
+      setText("hours", String(hours).padStart(2, "0"));
+      setText("minutes", String(minutes).padStart(2, "0"));
+      setText("seconds", String(seconds).padStart(2, "0"));
+    }
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+
+    // ============================
+    // Partículas
+    // ============================
+
+    const particlesScript = document.createElement('script');
+    particlesScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+    particlesScript.onload = () => {
+      if (window.particlesJS) {
+        window.particlesJS("particles-js", {
+          "particles": {
+            "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#1D71B8" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.25 },
+            "size": { "value": 3 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.15, "width": 1 },
+            "move": { "enable": true, "speed": 1.5 }
+          },
+          "interactivity": {
+            "events": { "onhover": { "enable": true, "mode": "grab" } }
+          },
+          "retina_detect": true
         });
-    </script>
+      }
+    };
+    document.body.appendChild(particlesScript);
+
+    // ============================
+    // Parallax / profundidad en header
+    // ============================
+
+    (function initHeaderParallax() {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) return;
+
+      const header = document.querySelector('.hero-image');
+      if (!header) return;
+
+      let ticking = false;
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+
+        window.requestAnimationFrame(() => {
+          const rect = header.getBoundingClientRect();
+
+          // Progreso: 0 cuando está en tope, 1 cuando se ha desplazado la altura del header.
+          const progress = Math.min(1, Math.max(0, (0 - rect.top) / Math.max(1, rect.height)));
+
+          // Máximo desplazamiento (px)
+          const maxShift = 28;
+          const y = Math.round(progress * maxShift);
+
+          header.style.setProperty('--parallaxY', `${y}px`);
+          ticking = false;
+        });
+      }
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    })();
+  </script>
 </body>
 </html>
