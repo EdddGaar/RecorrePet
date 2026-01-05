@@ -10,6 +10,7 @@
             --azul: #1D71B8;
             --naranja: #E94E1B;
             --blanco: #ffffff;
+            --fondo: #fcfcfc;
             --whatsapp: #25D366;
         }
 
@@ -17,50 +18,48 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--blanco);
+            background-color: var(--fondo);
             overflow-x: hidden;
             color: #333;
         }
 
-        /* Sección Superior: Limpia con Partículas */
-        .hero-section {
-            position: relative;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--blanco);
-            z-index: 1;
-        }
-
+        /* Fondo de Partículas */
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
             z-index: -1;
+            background-color: #ffffff;
         }
 
+        /* Header con Logo Vectorizado Pequeño */
         header {
-            width: 100%;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
             text-align: center;
-            background: rgba(255,255,255,0.9);
+            border-bottom: 4px solid var(--azul);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
         .logo-container img {
-            width: 140px;
+            width: 140px; /* Tamaño más estético y pequeño */
             height: auto;
+            transition: transform 0.3s ease;
         }
 
-        /* Hero Content */
-        .hero-content {
+        .logo-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
             text-align: center;
-            padding: 20px;
         }
 
+        /* Contador */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -74,18 +73,30 @@
             padding: 15px;
             border-radius: 12px;
             min-width: 85px;
-            box-shadow: 0 5px 15px rgba(29,113,184,0.2);
+            box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
         }
 
-        .time-box span { font-size: 2rem; font-weight: 900; display: block; }
-        .time-box label { font-size: 0.65rem; text-transform: uppercase; font-weight: 700; }
+        .time-box span {
+            font-size: 2rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+        }
 
+        .time-box label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Títulos */
         h1.main-title {
             font-size: 3rem;
             color: var(--naranja);
             font-weight: 900;
             margin-bottom: 10px;
             text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .subtitle {
@@ -93,13 +104,16 @@
             color: var(--azul);
             font-weight: 700;
             margin-bottom: 35px;
+            text-transform: uppercase;
         }
 
+        /* Botones */
         .button-group {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
+            margin: 30px 0;
         }
 
         .btn {
@@ -108,110 +122,110 @@
             font-weight: 900;
             text-decoration: none;
             border-radius: 50px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             min-width: 260px;
-            display: inline-block;
         }
 
-        .btn-wa { background: var(--whatsapp); color: white; }
-        .btn-forms { background: var(--azul); color: white; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-
-        /* SECCIÓN INFERIOR: PARALLAX Y GLASSMORFISMO */
-        .parallax-wrapper {
-            position: relative;
-            overflow: hidden;
-            margin-top: 50px;
-            border-radius: 60px 60px 0 0;
+        .btn-wa {
+            background-color: var(--whatsapp);
+            color: white;
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.2);
         }
 
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%;
-            background-image: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c63df7fd7c4e37845311cf356a09d466a38773cc/WallPet.png');
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
+        .btn-forms {
+            background-color: var(--azul);
+            color: white;
+            box-shadow: 0 6px 15px rgba(29, 113, 184, 0.2);
         }
 
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sección de Ruta Centrada */
         .ruta-section {
-            position: relative;
-            background: rgba(255, 255, 255, 0.25); /* Glassmorfismo claro */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 100px 20px;
+            background: #f4f7f9;
+            padding: 60px 20px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.4);
-            z-index: 1;
+            border-radius: 60px 60px 0 0;
+            margin-top: 20px;
         }
 
         .btn-ruta {
             background: var(--naranja);
             color: white;
-            padding: 20px 60px;
+            padding: 20px 50px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
             display: inline-block;
-            box-shadow: 0 8px 25px rgba(233, 78, 27, 0.4);
+            box-shadow: 0 8px 20px rgba(233, 78, 27, 0.3);
             transition: 0.3s;
         }
 
+        .btn-ruta:hover {
+            transform: scale(1.05);
+            background: #d14416;
+        }
+
         footer {
-            background: rgba(255, 255, 255, 0.9);
             padding: 40px;
+            background: #f4f7f9;
             text-align: center;
             font-size: 0.85rem;
+            color: #666;
         }
 
         .heart { color: #e25555; }
 
+        /* Responsive */
         @media (max-width: 600px) {
             h1.main-title { font-size: 2rem; }
+            .time-box { min-width: 70px; padding: 10px; }
             .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero-section">
-        <div id="particles-js"></div>
-        
-        <header>
-            <div class="logo-container">
-                <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Logo Vector">
-            </div>
-        </header>
+    <div id="particles-js"></div>
 
-        <div class="hero-content">
-            <div class="countdown-container">
-                <div class="time-box"><span id="days">00</span><label>Días</label></div>
-                <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
-                <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
-                <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
-            </div>
-
-            <h1 class="main-title">Inscripciones</h1>
-            <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
-
-            <div class="button-group">
-                <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">WhatsApp</a>
-                <a href="#" class="btn btn-forms">Inscripción Forms</a>
-            </div>
+    <header>
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/8963e5735228ba53fa6173b8719548ea4506fe71/Vector%20Pet%20Recorre.png" alt="Re Corre Pet Vector">
         </div>
-    </section>
+    </header>
 
-    <div class="parallax-wrapper">
-        <div class="parallax-bg" id="parallax"></div>
-        <section class="ruta-section">
-            <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 2rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
-            <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
-        </section>
-    </div>
+    <main class="hero">
+        <div class="countdown-container">
+            <div class="time-box"><span id="days">00</span><label>Días</label></div>
+            <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
+            <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
+            <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
+        </div>
+
+        <h1 class="main-title">Inscripciones</h1>
+        <p class="subtitle">Corre con tu mejor amigo en Toluca</p>
+
+        <div class="button-group">
+            <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20🐾" class="btn btn-wa" target="_blank">
+                Inscripción WhatsApp
+            </a>
+            <a href="#" id="link-forms" class="btn btn-forms">
+                Inscripción Forms
+            </a>
+        </div>
+    </main>
+
+    <section class="ruta-section">
+        <h2 style="margin-bottom: 25px; color: var(--azul); font-weight: 900; font-size: 1.8rem; text-transform: uppercase;">¿LISTO PARA EL RETO?</h2>
+        <a href="https://maps.google.com" target="_blank" class="btn-ruta">VER MAPA DE LA RUTA</a>
+    </section>
 
     <footer>
         <p>Creado por runners y para runners <span class="heart">❤</span></p>
@@ -220,18 +234,9 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // --- PARALLAX SOLO PARA LA SECCIÓN INFERIOR ---
-        window.addEventListener('scroll', function() {
-            const parallax = document.getElementById("parallax");
-            const wrapper = document.querySelector(".parallax-wrapper");
-            let offset = window.pageYOffset - wrapper.offsetTop;
-            if (window.pageYOffset > (wrapper.offsetTop - window.innerHeight)) {
-                parallax.style.transform = 'translateY(' + offset * 0.3 + 'px)';
-            }
-        });
-
-        // --- CONTADOR ---
+        // --- FECHA DEL EVENTO: 25 DE ENERO 2026, 8:00 AM ---
         const raceDate = new Date("2026-01-25T08:00:00").getTime();
+
         setInterval(function() {
             const now = new Date().getTime();
             const diff = raceDate - now;
@@ -243,18 +248,21 @@
             }
         }, 1000);
 
-        // --- PARTÍCULAS (FONDO BLANCO SUPERIOR) ---
+        // --- PARTÍCULAS AZULES ---
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 80 },
+                "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#1D71B8" },
                 "shape": { "type": "circle" },
                 "opacity": { "value": 0.2 },
                 "size": { "value": 3 },
                 "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
-                "move": { "enable": true, "speed": 2 }
+                "move": { "enable": true, "speed": 1.5 }
             },
-            "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" } }
+            },
+            "retina_detect": true
         });
     </script>
 </body>
