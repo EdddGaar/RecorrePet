@@ -12,14 +12,10 @@
 
   <style>
     :root {
-      --instagram-grad: linear-gradient(135deg, #515BD4, #8134AF, #DD2A7B, #F58529);
-      --facebook: #1877F2;
       --azul: #1D71B8;
       --naranja: #E94E1B;
       --fondo: #fcfcfc;
       --whatsapp: #25D366;
-      --spotify: #1DB954;
-      --strava: #FC6100;
       --radius-lg: 12px;
       --radius-pill: 50px;
     }
@@ -49,15 +45,6 @@
     .btn-wa { background: var(--whatsapp); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
     .btn-forms { background: var(--azul); box-shadow: 0 8px 20px rgba(29,113,184,0.3); }
     .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
-
-    .community-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
-    .card { padding: 30px; border-radius: 20px; color: white; text-align: center; transition: 0.3s; }
-    .card:hover { transform: scale(1.02); }
-    .card-spotify { background: var(--spotify); box-shadow: 0 10px 25px rgba(29,185,84,0.2); }
-    .card-strava { background: var(--strava); box-shadow: 0 10px 25px rgba(252,97,0,0.2); }
-    .card h3 { margin-bottom: 10px; font-weight: 900; }
-    .card p { font-size: 0.85rem; margin-bottom: 20px; min-height: 40px; }
-    .btn-white { background: white; color: #333; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 0.8rem; display: inline-block; }
 
     .ruta-section { position: relative; padding: 60px 20px; margin-top: 50px; border-radius: 40px 40px 0 0; overflow: hidden; color: white; }
     .ruta-section::before { content: ""; position: absolute; inset: 0; background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png') center/cover; filter: blur(10px) brightness(0.6); z-index: -1; }
@@ -89,28 +76,15 @@
       <a href="https://forms.gle/KRPsT4ekPgVpotmr5" class="btn btn-forms" target="_blank">Google Forms</a>
     </div>
 
-    <div class="community-grid reveal">
-      <div class="card card-spotify">
-        <h3>🎵 PLAYLIST</h3>
-        <p>Añade tu canción favorita y armemos el ritmo de la carrera juntos.</p>
-        <a href="TU_LINK_SPOTIFY_COLABORATIVO" class="btn-white" target="_blank">AÑADIR CANCIÓN</a>
-      </div>
-      <div class="card card-strava">
-        <h3>🧡 CLUB STRAVA</h3>
-        <p>Únete al club oficial, registra tus rutas y compite en el ranking.</p>
-        <a href="TU_LINK_CLUB_STRAVA" class="btn-white" target="_blank">UNIRME AL CLUB</a>
-      </div>
-    </div>
-
     <div class="reveal" style="margin-top:40px;">
-        <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png" style="width:100%; border-radius:20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);" alt="Info">
+        <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png" style="width:100%; border-radius:20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);" alt="Información de la carrera">
     </div>
   </main>
 
   <section class="ruta-section reveal" style="text-align: center;">
       <div class="ruta-content">
           <h2>¿LISTO PARA EL RETO?</h2>
-          <a href="https://www.google.com/maps/search/?api=1&query=Toluca+Estado+de+Mexico7" 
+          <a href="https://www.google.com/maps/dir/?api=1&origin=19.278852,-99.658797&destination=19.256889,-99.663205&travelmode=walking" 
              target="_blank" 
              rel="noopener" 
              class="btn" 
@@ -127,9 +101,11 @@
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
+    // Animación de aparición
     const obs = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('is-visible')), {threshold: 0.1});
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+    // Contador regresivo
     const target = new Date("2026-01-25T08:00:00-06:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
@@ -142,6 +118,7 @@
       }
     }, 1000);
 
+    // Partículas de fondo
     particlesJS("particles-js", {"particles":{"number":{"value":50},"color":{"value":"#1D71B8"},"opacity":{"value":0.2},"size":{"value":3},"line_linked":{"enable":true,"distance":150,"color":"#1D71B8","opacity":0.2,"width":1},"move":{"enable":true,"speed":1}}});
   </script>
 </body>
