@@ -55,8 +55,12 @@
     /* Header (Hero Image) con profundidad + parallax */
     .hero-image {
       position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9; /* mantiene proporción y permite ver la imagen completa a lo largo */
+      width: 100vw;              /* fuerza ancho completo del viewport */
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;        /* elimina cualquier margen del layout */
+      margin-right: -50vw;
+      aspect-ratio: 16 / 9;      /* proporción consistente en todos los dispositivos */
       max-height: 45vh;
       overflow: hidden;
       border-bottom: 4px solid var(--azul);
@@ -68,9 +72,11 @@
     }
 
     .hero-image img {
+      display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* imagen completa de lado a lado */
+      max-width: none;          /* evita limitaciones de ancho */
+      object-fit: contain;     /* se ve completo sin recorte */
       object-position: center;
       transform: translate3d(var(--parallaxX, 0px), var(--parallaxY, 0px), 0);
       will-change: transform;
