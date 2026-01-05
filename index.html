@@ -5,36 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Inscripciones | Re Corre Pet 2026</title>
-  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 y vive una experiencia pet-friendly." />
+  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 y vive una experiencia pet-friendly única." />
 
-  <!-- Open Graph / Social sharing -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Re Corre Pet 2026",
+    "startDate": "2026-01-25T08:00:00-06:00",
+    "location": {
+      "@type": "Place",
+      "name": "Toluca, Estado de México",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Toluca",
+        "addressRegion": "Edomex",
+        "addressCountry": "MX"
+      }
+    },
+    "image": ["https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png"],
+    "description": "Carrera pet-friendly en Toluca. ¡Inscríbete y corre con tu perro!",
+    "offers": {
+      "@type": "Offer",
+      "url": "https://recorre.club",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
   <meta property="og:title" content="Inscripciones | Re Corre Pet 2026" />
-  <meta property="og:description" content="Corre con tu mejor amigo en Toluca. Inscripción por WhatsApp o Forms." />
+  <meta property="og:description" content="Corre con tu mejor amigo en Toluca. ¡Inscríbete ahora!" />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="es_MX" />
+  <meta property="og:url" content="https://recorre.club" />
   <meta property="og:image" content="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Fonts (rendimiento) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --instagram-1: #F58529;
-      --instagram-2: #DD2A7B;
-      --instagram-3: #8134AF;
-      --instagram-4: #515BD4;
+      --instagram-grad: linear-gradient(135deg, #515BD4, #8134AF, #DD2A7B, #F58529);
       --facebook: #1877F2;
       --azul: #1D71B8;
       --naranja: #E94E1B;
-      --blanco: #ffffff;
       --fondo: #fcfcfc;
       --whatsapp: #25D366;
-
-      --shadow-sm: 0 4px 15px rgba(0,0,0,0.05);
-      --shadow-md: 0 8px 20px rgba(29, 113, 184, 0.2);
       --radius-lg: 12px;
       --radius-pill: 50px;
     }
@@ -48,7 +65,6 @@
       color: #333;
     }
 
-    /* Fondo de Partículas */
     #particles-js {
       position: fixed;
       width: 100%;
@@ -57,51 +73,42 @@
       background-color: #ffffff;
     }
 
-    /* Header full width */
     .hero-image {
-      position: relative;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      height: clamp(150px, 22vh, 300px);
-      overflow: hidden;
+      width: 100%;
+      height: auto;
+      min-height: 150px;
+      background: linear-gradient(90deg, rgba(10,190,206,0.1), #fff, rgba(10,190,206,0.1));
+      display: flex;
+      justify-content: center;
       border-bottom: 4px solid var(--azul);
-      background: linear-gradient(90deg, rgba(10,190,206,0.22), rgba(255,255,255,0.85), rgba(10,190,206,0.22));
     }
 
     .hero-image img {
-      display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
+      max-width: 1000px;
       object-fit: contain;
-      object-position: center;
+      aspect-ratio: 16 / 5;
     }
 
-    /* Hero */
     .hero {
-      padding: 40px 20px 25px;
+      padding: 40px 20px;
       max-width: 1000px;
       margin: 0 auto;
       text-align: center;
-      min-height: 60vh;
     }
 
-    /* Reveal on scroll */
     .reveal {
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      will-change: transform, opacity;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
     }
 
     .reveal.is-visible {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
 
-    /* Contador */
     .countdown-container {
       display: flex;
       justify-content: center;
@@ -116,29 +123,18 @@
       padding: 15px;
       border-radius: var(--radius-lg);
       min-width: 85px;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
     }
 
-    .time-box span {
-      font-size: 2rem;
-      font-weight: 900;
-      display: block;
-      line-height: 1;
-    }
-
-    .time-box label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
+    .time-box span { font-size: 2rem; font-weight: 900; display: block; }
+    .time-box label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; }
 
     h1.main-title {
-      font-size: 3rem;
+      font-size: clamp(2rem, 8vw, 3.5rem);
       color: var(--naranja);
       font-weight: 900;
-      margin-bottom: 10px;
       text-transform: uppercase;
-      letter-spacing: -1px;
+      margin-bottom: 10px;
     }
 
     .subtitle {
@@ -152,10 +148,9 @@
     .button-group {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 15px;
-      flex-wrap: nowrap;
-      margin: 30px 0 18px;
+      flex-wrap: wrap;
+      margin: 30px 0;
     }
 
     .btn {
@@ -164,209 +159,61 @@
       font-weight: 900;
       text-decoration: none;
       border-radius: var(--radius-pill);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      transition: all 0.3s ease;
       text-transform: uppercase;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 240px;
-      border: 0;
-      user-select: none;
-    }
-
-    .btn-wa {
-      background-color: var(--whatsapp);
+      min-width: 260px;
       color: #fff;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.28);
+      border: none;
     }
 
-    .btn-forms {
-      background-color: var(--azul);
-      color: #fff;
-      box-shadow: 0 10px 25px rgba(29, 113, 184, 0.26);
-    }
+    .btn-wa { background-color: var(--whatsapp); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
+    .btn-forms { background-color: var(--azul); box-shadow: 0 10px 20px rgba(29, 113, 184, 0.2); }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); filter: brightness(1.1); }
 
-    .btn:hover {
-      transform: translateY(-4px);
-      filter: saturate(1.05);
-      box-shadow: 0 16px 35px rgba(0,0,0,0.14);
-    }
-
-    .btn:active {
-      transform: translateY(-1px);
-    }
-
-    /* Estado deshabilitado (por si lo necesitas en el futuro) */
-    .btn.is-disabled,
-    .btn[aria-disabled="true"] {
-      opacity: 0.6;
-      cursor: not-allowed;
-      pointer-events: none;
-      filter: grayscale(0.2);
-      box-shadow: var(--shadow-sm);
-      transform: none;
-    }
-
-    /* Línea divisoria azul */
-    .divider {
-      width: 80%;
-      max-width: 600px;
-      height: 4px;
-      margin: 22px auto 18px;
-      background: linear-gradient(90deg, transparent, var(--azul), transparent);
-      border-radius: 4px;
-    }
-
-    /* Imagen debajo de botones (profundidad PRO) */
     .foot-image-wrap {
       position: relative;
-      margin: 14px auto 6px;
-      max-width: 900px;
-      padding: 0 10px;
-      perspective: 900px;
-    }
-
-    .foot-image-wrap::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -18px;
-      width: 78%;
-      height: 26px;
-      transform: translateX(-50%);
-      background: radial-gradient(closest-side, rgba(29,113,184,0.28), transparent 70%);
-      filter: blur(12px);
-      opacity: .9;
-      pointer-events: none;
-    }
-
-    .foot-image-wrap::after {
-      content: "";
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      top: 10px;
-      height: 42%;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.35), transparent 70%);
-      pointer-events: none;
-      opacity: .85;
+      margin: 30px auto;
+      max-width: 800px;
+      padding: 0 15px;
     }
 
     .foot-image {
       width: 100%;
       height: auto;
-      display: block;
       border-radius: 18px;
-      box-shadow: 0 22px 55px rgba(0,0,0,0.18);
-      transition: transform .35s ease, box-shadow .35s ease, filter .35s ease;
-      will-change: transform;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     }
 
-    @media (hover:hover) and (pointer:fine) {
-      .foot-image-wrap:hover .foot-image {
-        transform: rotateX(2.5deg) translateY(-6px);
-        box-shadow: 0 34px 80px rgba(0,0,0,0.22);
-        filter: contrast(1.05) saturate(1.05);
-      }
-    }
+    .social-section { margin: 40px 0; }
+    .social-title { color: var(--azul); font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
 
-    /* Redes */
-    .social-section {
-      max-width: 1000px;
-      margin: 10px auto 0;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    .social-title {
-      color: var(--azul);
-      font-weight: 900;
-      text-transform: uppercase;
-      font-size: 1.05rem;
-      margin: 18px 0 12px;
-      letter-spacing: 0.2px;
-    }
-
-    .social-group {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-
-    .btn-social {
-      color: #fff;
-      border: 0;
-      box-shadow: 0 14px 32px rgba(0,0,0,0.16);
-      min-width: 220px;
-      gap: 10px;
-    }
-
-    .btn-social svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .btn-ig {
-      background: linear-gradient(135deg, var(--instagram-4), var(--instagram-3), var(--instagram-2), var(--instagram-1));
-    }
-
-    .btn-fb {
-      background: linear-gradient(135deg, var(--facebook), #0f5bd5);
-    }
-
-    .btn-social:hover {
-      transform: translateY(-5px);
-      filter: saturate(1.08);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.2);
-    }
+    .btn-social { min-width: 220px; margin: 10px; font-size: 0.85rem; }
+    .btn-ig { background: var(--instagram-grad); }
+    .btn-fb { background-color: var(--facebook); }
+    .btn-social svg { width: 18px; height: 18px; margin-right: 10px; fill: white; }
 
     .ruta-section {
       position: relative;
-      background: none;
-      overflow: hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.10);
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
-      border-radius: 60px 60px 0 0;
-      margin-top: 20px;
+      margin-top: 50px;
+      border-radius: 50px 50px 0 0;
+      overflow: hidden;
     }
 
-    /* Fondo difuminado de la sección ruta */
     .ruta-section::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png') center / cover no-repeat;
-      filter: blur(22px) brightness(1.05);
-      transform: scale(1.1);
+      background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png') center/cover;
+      filter: blur(15px) brightness(0.7);
       z-index: 0;
     }
 
-    .ruta-section::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.78);
-      z-index: 1;
-    }
-
-    .ruta-section > * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .ruta-title {
-      margin-bottom: 25px;
-      color: var(--azul);
-      font-weight: 900;
-      font-size: 1.8rem;
-      text-transform: uppercase;
-    }
-
+    .ruta-content { position: relative; z-index: 1; color: white; }
     .btn-ruta {
       background: var(--naranja);
       color: white;
@@ -375,247 +222,136 @@
       text-decoration: none;
       font-weight: 900;
       display: inline-block;
-      box-shadow: 0 10px 28px rgba(233, 78, 27, 0.30);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      margin-top: 25px;
+      box-shadow: 0 10px 25px rgba(233, 78, 27, 0.4);
+      transition: 0.3s;
     }
+    .btn-ruta:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-    .btn-ruta:hover {
-      transform: translateY(-3px) scale(1.01);
-      filter: saturate(1.05);
-      box-shadow: 0 16px 40px rgba(233, 78, 27, 0.33);
-    }
-
-    .btn-ruta:active {
-      transform: translateY(-1px);
-    }
-
-    .heart { color: #e25555; }
-
-    footer {
-      padding: 40px;
-      background: rgba(240, 242, 245, 0.45);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,255,255,0.55);
-      text-align: center;
-      font-size: 0.85rem;
-      color: #666;
-    }
-
-    @media (max-width: 760px) {
-      .button-group { flex-wrap: wrap; }
-    }
+    footer { padding: 40px; text-align: center; background: #f4f4f4; color: #666; font-size: 0.85rem; }
+    .heart { color: #ff4d4d; }
 
     @media (max-width: 600px) {
-      h1.main-title { font-size: 2rem; }
       .btn { width: 100%; min-width: 0; }
-      .hero-image { height: clamp(150px, 20vh, 220px); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; }
-      #particles-js { display: none; }
+      .time-box { min-width: 70px; padding: 10px; }
     }
   </style>
 </head>
 <body>
+
   <div id="particles-js" aria-hidden="true"></div>
 
   <header class="hero-image">
-    <img
-      src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png"
-      alt="Re Corre Pet 2026"
-      loading="eager"
-      decoding="async"
-    />
+    <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" alt="Re Corre Pet 2026 Logo" />
   </header>
 
-  <main class="hero reveal">
-    <div class="countdown-container" aria-label="Cuenta regresiva al evento">
+  <main class="hero">
+    <div class="countdown-container reveal" id="countdown">
       <div class="time-box"><span id="days">00</span><label>Días</label></div>
       <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
       <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
       <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
     </div>
 
-    <h1 class="main-title">Inscripciones</h1>
-    <p class="subtitle" id="subtitle">Corre con tu mejor amigo 🐶 en Toluca</p>
+    <h1 class="main-title reveal">Inscripciones</h1>
+    <p class="subtitle reveal" id="subtitle">Corre con tu mejor amigo 🐶 en Toluca</p>
 
-    <div class="button-group">
-      <a
-        href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet%20%F0%9F%90%BE"
-        class="btn btn-wa"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Inscribirme por WhatsApp"
-      >
+    <div class="button-group reveal">
+      <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet" class="btn btn-wa" target="_blank" rel="noopener">
         Inscripción WhatsApp
       </a>
-
-      <a
-        href="https://forms.gle/KRPsT4ekPgVpotmr5"
-        class="btn btn-forms"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Inscribirme por Google Forms"
-      >
+      <a href="https://forms.gle/KRPsT4ekPgVpotmr5" class="btn btn-forms" target="_blank" rel="noopener">
         Inscripción Forms
       </a>
     </div>
 
-    <!-- Línea divisoria -->
-    <div class="divider reveal" aria-hidden="true"></div>
-
-    <!-- Imagen solicitada debajo de los botones -->
-    <div class="foot-image-wrap reveal" aria-label="Imagen informativa">
-      <img
-        class="foot-image"
-        src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png"
-        alt="Información de la carrera Re Corre Pet"
-        loading="lazy"
-        decoding="async"
-      />
+    <div class="foot-image-wrap reveal">
+      <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png" alt="Información Carrera Re Corre Pet" class="foot-image" loading="lazy">
     </div>
 
-    <!-- Redes sociales -->
-    <section class="social-section reveal" aria-label="Redes sociales">
-      <h2 class="social-title">Síguenos en redes</h2>
+    <section class="social-section reveal">
+      <h2 class="social-title">SÍGUENOS EN REDES</h2>
       <div class="social-group">
-        <a
-          class="btn btn-social btn-ig"
-          href="https://www.instagram.com/rcrecorre?igsh=MW9ybTR0Z3d3NXNseg=="
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Ir a Instagram"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 4.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm0 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM17.6 6.3a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1Z"/>
-          </svg>
+        <a href="https://www.instagram.com/rcrecorre" class="btn btn-social btn-ig" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 4.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm0 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM17.6 6.3a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1Z"/></svg>
           Instagram
         </a>
-
-        <a
-          class="btn btn-social btn-fb"
-          href="https://www.facebook.com/share/1D8uWStmMu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Ir a Facebook"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H16.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V11H7.5v3H10v8h3.5Z"/>
-          </svg>
-          Facebook
+        <a href="https://www.facebook.com/runningclub.recorre.2025/photos?locale=es_LA" class="btn btn-social btn-fb" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H16.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V11H7.5v3H10v8h3.5Z"/></svg>
+          Galería Facebook
         </a>
       </div>
     </section>
   </main>
 
   <section class="ruta-section reveal">
-    <h2 class="ruta-title">¿LISTO PARA EL RETO?</h2>
-    <a
-      href="https://maps.app.goo.gl/dBuQ7Bje7GBYA9Lo6"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-ruta"
-      aria-label="Ver mapa de la ruta"
-    >
-      VER MAPA DE LA RUTA
-    </a>
+    <div class="ruta-content">
+      <h2>¿LISTO PARA EL RETO?</h2>
+      <a href="https://www.google.com/maps/search/Toluca+Estado+de+Mexico" target="_blank" rel="noopener" class="btn-ruta">
+        VER MAPA DE LA RUTA
+      </a>
+    </div>
   </section>
 
-  <footer class="reveal">
+  <footer>
     <p>Creado por runners y para runners <span class="heart">❤</span></p>
-    <p style="margin-top: 10px; font-weight: 700;">RECORRE.CLUB</p>
+    <p style="margin-top: 10px; font-weight: 700; letter-spacing: 1px;">RECORRE.CLUB</p>
   </footer>
 
   <script>
-    // ============================
-    // Reveal on scroll (IntersectionObserver)
-    // ============================
-    const revealItems = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
+    // Reveal Animation
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          revealObserver.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
-    revealItems.forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ============================
-    // CONFIG (EDÍTAME)
-    // ============================
-
-    // Fecha del evento (Toluca/CDMX). IMPORTANTE: mantener -06:00 para evitar desfases por dispositivo.
-    const RACE_ISO_DATE = "2026-01-25T08:00:00-06:00";
-
-    // ============================
-    // Contador
-    // ============================
-    const raceDate = new Date(RACE_ISO_DATE).getTime();
-
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el) el.innerText = value;
-    }
-
+    // Countdown Logic
+    const raceDate = new Date("2026-01-25T08:00:00-06:00").getTime();
+    
     function updateCountdown() {
-      const diff = raceDate - Date.now();
+      const now = new Date().getTime();
+      const diff = raceDate - now;
 
       if (diff <= 0) {
-        setText("days", "00");
-        setText("hours", "00");
-        setText("minutes", "00");
-        setText("seconds", "00");
-
-        const subtitle = document.getElementById("subtitle");
-        if (subtitle) subtitle.innerText = "El evento ya comenzó o ya terminó";
-
-        clearInterval(timer);
+        document.getElementById("subtitle").innerText = "¡Llegó el gran día! 🏁";
         return;
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-      setText("days", String(days).padStart(2, "0"));
-      setText("hours", String(hours).padStart(2, "0"));
-      setText("minutes", String(minutes).padStart(2, "0"));
-      setText("seconds", String(seconds).padStart(2, "0"));
+      document.getElementById("days").innerText = String(d).padStart(2, '0');
+      document.getElementById("hours").innerText = String(h).padStart(2, '0');
+      document.getElementById("minutes").innerText = String(m).padStart(2, '0');
+      document.getElementById("seconds").innerText = String(s).padStart(2, '0');
     }
 
+    setInterval(updateCountdown, 1000);
     updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
 
-    // ============================
-    // Partículas
-    // ============================
-    const particlesScript = document.createElement('script');
-    particlesScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
-    particlesScript.onload = () => {
-      if (window.particlesJS) {
-        window.particlesJS("particles-js", {
-          "particles": {
-            "number": { "value": 95, "density": { "enable": true, "value_area": 800 } },
-            "color": { "value": "#1D71B8" },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.4 },
-            "size": { "value": 3 },
-            "line_linked": { "enable": true, "distance": 160, "color": "#1D71B8", "opacity": 0.3, "width": 1 },
-            "move": { "enable": true, "speed": 1.5 }
-          },
-          "interactivity": {
-            "events": { "onhover": { "enable": true, "mode": "grab" } }
-          },
-          "retina_detect": true
-        });
-      }
+    // Particles JS
+    const pScript = document.createElement('script');
+    pScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+    pScript.onload = () => {
+      particlesJS("particles-js", {
+        "particles": {
+          "number": { "value": 60 },
+          "color": { "value": "#1D71B8" },
+          "opacity": { "value": 0.2 },
+          "size": { "value": 3 },
+          "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
+          "move": { "enable": true, "speed": 1 }
+        },
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+        "retina_detect": true
+      });
     };
-    document.body.appendChild(particlesScript);
+    document.body.appendChild(pScript);
   </script>
 </body>
 </html>
