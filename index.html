@@ -3,43 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Inscripciones | Re Corre Pet 2026</title>
-  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 en la ruta de Colón." />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "Re Corre Pet 2026",
-    "startDate": "2026-01-25T08:00:00-06:00",
-    "location": {
-      "@type": "Place",
-      "name": "Ciclovía Colón, Toluca",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Toluca",
-        "addressRegion": "Edomex",
-        "addressCountry": "MX"
-      }
-    },
-    "image": ["https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png"],
-    "description": "Carrera pet-friendly en Toluca. ¡Inscríbete y corre con tu perro!",
-    "offers": {
-      "@type": "Offer",
-      "url": "https://recorre.club",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-  </script>
-
-  <meta property="og:title" content="Inscripciones | Re Corre Pet 2026" />
-  <meta property="og:description" content="Corre con tu mejor amigo en Toluca. ¡Inscríbete ahora!" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://recorre.club" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-
+  
+  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
@@ -52,305 +18,131 @@
       --naranja: #E94E1B;
       --fondo: #fcfcfc;
       --whatsapp: #25D366;
+      --spotify: #1DB954;
+      --strava: #FC6100;
       --radius-lg: 12px;
       --radius-pill: 50px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background-color: var(--fondo); color: #333; overflow-x: hidden; }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--fondo);
-      overflow-x: hidden;
-      color: #333;
-    }
+    #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
 
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background-color: #ffffff;
-    }
+    .hero-image { width: 100%; height: auto; border-bottom: 4px solid var(--azul); background: white; display: flex; justify-content: center; }
+    .hero-image img { width: 100%; max-width: 1000px; aspect-ratio: 16/5; object-fit: contain; }
 
-    .hero-image {
-      width: 100%;
-      height: auto;
-      min-height: 150px;
-      background: linear-gradient(90deg, rgba(10,190,206,0.1), #fff, rgba(10,190,206,0.1));
-      display: flex;
-      justify-content: center;
-      border-bottom: 4px solid var(--azul);
-    }
+    .container { padding: 40px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
 
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      max-width: 1000px;
-      object-fit: contain;
-      aspect-ratio: 16 / 5;
-    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-    .hero {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    .countdown-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+    .time-box { background: var(--azul); color: white; padding: 15px; border-radius: var(--radius-lg); min-width: 80px; }
+    .time-box span { font-size: 1.8rem; font-weight: 900; display: block; }
+    .time-box label { font-size: 0.7rem; text-transform: uppercase; }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
+    h1 { font-size: clamp(2rem, 8vw, 3.5rem); color: var(--naranja); font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+    .subtitle { color: var(--azul); font-weight: 700; margin-bottom: 30px; text-transform: uppercase; }
 
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .btn { padding: 18px 30px; border-radius: var(--radius-pill); text-decoration: none; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; color: white; transition: 0.3s; margin: 10px; min-width: 260px; text-transform: uppercase; border: none; cursor: pointer; }
+    .btn-wa { background: var(--whatsapp); box-shadow: 0 8px 20px rgba(37,211,102,0.3); }
+    .btn-forms { background: var(--azul); box-shadow: 0 8px 20px rgba(29,113,184,0.3); }
+    .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
-    .countdown-container {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
+    .community-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+    .card { padding: 30px; border-radius: 20px; color: white; text-align: center; transition: 0.3s; }
+    .card:hover { transform: scale(1.02); }
+    .card-spotify { background: var(--spotify); box-shadow: 0 10px 25px rgba(29,185,84,0.2); }
+    .card-strava { background: var(--strava); box-shadow: 0 10px 25px rgba(252,97,0,0.2); }
+    .card h3 { margin-bottom: 10px; font-weight: 900; }
+    .card p { font-size: 0.85rem; margin-bottom: 20px; min-height: 40px; }
+    .btn-white { background: white; color: #333; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 900; font-size: 0.8rem; display: inline-block; }
 
-    .time-box {
-      background: var(--azul);
-      color: white;
-      padding: 15px;
-      border-radius: var(--radius-lg);
-      min-width: 85px;
-      box-shadow: 0 8px 20px rgba(29, 113, 184, 0.2);
-    }
-
-    .time-box span { font-size: 2rem; font-weight: 900; display: block; }
-    .time-box label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; }
-
-    h1.main-title {
-      font-size: clamp(2rem, 8vw, 3.5rem);
-      color: var(--naranja);
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--azul);
-      font-weight: 700;
-      margin-bottom: 35px;
-      text-transform: uppercase;
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin: 30px 0;
-    }
-
-    .btn {
-      padding: 18px 35px;
-      font-size: 0.95rem;
-      font-weight: 900;
-      text-decoration: none;
-      border-radius: var(--radius-pill);
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 260px;
-      color: #fff;
-      border: none;
-    }
-
-    .btn-wa { background-color: var(--whatsapp); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
-    .btn-forms { background-color: var(--azul); box-shadow: 0 10px 20px rgba(29, 113, 184, 0.2); }
-    .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); filter: brightness(1.1); }
-
-    .foot-image-wrap {
-      position: relative;
-      margin: 30px auto;
-      max-width: 800px;
-      padding: 0 15px;
-    }
-
-    .foot-image {
-      width: 100%;
-      height: auto;
-      border-radius: 18px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-
-    .social-section { margin: 40px 0; }
-    .social-title { color: var(--azul); font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
-
-    .btn-social { min-width: 220px; margin: 10px; font-size: 0.85rem; }
-    .btn-ig { background: var(--instagram-grad); }
-    .btn-fb { background-color: var(--facebook); }
-    .btn-social svg { width: 18px; height: 18px; margin-right: 10px; fill: white; }
-
-    .ruta-section {
-      position: relative;
-      padding: 80px 20px;
-      text-align: center;
-      margin-top: 50px;
-      border-radius: 50px 50px 0 0;
-      overflow: hidden;
-    }
-
-    .ruta-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png') center/cover;
-      filter: blur(15px) brightness(0.7);
-      z-index: 0;
-    }
-
-    .ruta-content { position: relative; z-index: 1; color: white; }
-    .btn-ruta {
-      background: var(--naranja);
-      color: white;
-      padding: 20px 50px;
-      border-radius: var(--radius-pill);
-      text-decoration: none;
-      font-weight: 900;
-      display: inline-block;
-      margin-top: 25px;
-      box-shadow: 0 10px 25px rgba(233, 78, 27, 0.4);
-      transition: 0.3s;
-    }
-    .btn-ruta:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-    footer { padding: 40px; text-align: center; background: #f4f4f4; color: #666; font-size: 0.85rem; }
-    .heart { color: #ff4d4d; }
-
-    @media (max-width: 600px) {
-      .btn { width: 100%; min-width: 0; }
-      .time-box { min-width: 70px; padding: 10px; }
-    }
+    .ruta-section { position: relative; padding: 60px 20px; margin-top: 50px; border-radius: 40px 40px 0 0; overflow: hidden; color: white; }
+    .ruta-section::before { content: ""; position: absolute; inset: 0; background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png') center/cover; filter: blur(10px) brightness(0.6); z-index: -1; }
+    
+    footer { padding: 40px; background: #f4f4f4; text-align: center; color: #666; font-size: 0.8rem; }
   </style>
 </head>
 <body>
 
-  <div id="particles-js" aria-hidden="true"></div>
+  <div id="particles-js"></div>
 
   <header class="hero-image">
-    <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" alt="Re Corre Pet 2026 Logo" />
+    <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/cca623fbb8deb5fc54acb1c3bb3d41f3545f50e3/WallPet.png" alt="Logo Re Corre Pet">
   </header>
 
-  <main class="hero">
-    <div class="countdown-container reveal" id="countdown">
+  <main class="container">
+    <div class="countdown-container reveal" id="timer">
       <div class="time-box"><span id="days">00</span><label>Días</label></div>
       <div class="time-box"><span id="hours">00</span><label>Hrs</label></div>
       <div class="time-box"><span id="minutes">00</span><label>Min</label></div>
       <div class="time-box"><span id="seconds">00</span><label>Seg</label></div>
     </div>
 
-    <h1 class="main-title reveal">Inscripciones</h1>
-    <p class="subtitle reveal" id="subtitle">Corre con tu mejor amigo 🐶 en Toluca</p>
+    <h1 class="reveal">Inscripciones</h1>
+    <p class="subtitle reveal">Corre con tu mejor amigo 🐶 en Toluca</p>
 
-    <div class="button-group reveal">
-      <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet" class="btn btn-wa" target="_blank" rel="noopener">
-        Inscripción WhatsApp
-      </a>
-      <a href="https://forms.gle/KRPsT4ekPgVpotmr5" class="btn btn-forms" target="_blank" rel="noopener">
-        Inscripción Forms
-      </a>
+    <div class="reveal">
+      <a href="https://wa.me/527299213873?text=Hola!%20Quiero%20inscribirme%20a%20la%20Carrera%20Re%20Corre%20Pet" class="btn btn-wa" target="_blank">WhatsApp</a>
+      <a href="https://forms.gle/KRPsT4ekPgVpotmr5" class="btn btn-forms" target="_blank">Google Forms</a>
     </div>
 
-    <div class="foot-image-wrap reveal">
-      <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png" alt="Información Carrera Re Corre Pet" class="foot-image" loading="lazy">
-    </div>
-
-    <section class="social-section reveal">
-      <h2 class="social-title">SÍGUENOS EN REDES</h2>
-      <div class="social-group">
-        <a href="https://www.instagram.com/rcrecorre" class="btn btn-social btn-ig" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 4.2a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6Zm0 2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM17.6 6.3a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1Z"/></svg>
-          Instagram
-        </a>
-        <a href="https://www.facebook.com/runningclub.recorre.2025/photos?locale=es_LA" class="btn btn-social btn-fb" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H16.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V11H7.5v3H10v8h3.5Z"/></svg>
-          Galería Facebook
-        </a>
+    <div class="community-grid reveal">
+      <div class="card card-spotify">
+        <h3>🎵 PLAYLIST</h3>
+        <p>Añade tu canción favorita y armemos el ritmo de la carrera juntos.</p>
+        <a href="TU_LINK_SPOTIFY_COLABORATIVO" class="btn-white" target="_blank">AÑADIR CANCIÓN</a>
       </div>
-    </section>
+      <div class="card card-strava">
+        <h3>🧡 CLUB STRAVA</h3>
+        <p>Únete al club oficial, registra tus rutas y compite en el ranking.</p>
+        <a href="TU_LINK_CLUB_STRAVA" class="btn-white" target="_blank">UNIRME AL CLUB</a>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:40px;">
+        <img src="https://raw.githubusercontent.com/EdddGaar/RecorrePet/c0f34634a7eea8c2d6f68c9c5c7941252bde0632/footimage.png" style="width:100%; border-radius:20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);" alt="Info">
+    </div>
   </main>
 
-  <section class="ruta-section reveal">
-    <div class="ruta-content">
-      <h2>¿LISTO PARA EL RETO?</h2>
-      <a href="https://www.google.com/maps/dir/?api=1&origin=El+Águila+Toluca&destination=Ciclovia+Ocho+Cedros+Toluca&travelmode=driving" 
-         target="_blank" 
-         rel="noopener" 
-         class="btn-ruta">
-        VER MAPA DE LA RUTA
-      </a>
-    </div>
+  <section class="ruta-section reveal" style="text-align: center;">
+      <div class="ruta-content">
+          <h2>¿LISTO PARA EL RETO?</h2>
+          <a href="https://www.google.com/maps/search/?api=1&query=Toluca+Estado+de+Mexico7" 
+             target="_blank" 
+             rel="noopener" 
+             class="btn" 
+             style="background: var(--naranja); min-width: 200px;">
+             VER RUTA EN MAPS
+          </a>
+      </div>
   </section>
 
   <footer>
-    <p>Creado por runners y para runners <span class="heart">❤</span></p>
-    <p style="margin-top: 10px; font-weight: 700; letter-spacing: 1px;">RECORRE.CLUB</p>
+    <p>Creado con ❤️ para runners y sus perritos</p>
+    <p><strong>RECORRE.CLUB</strong></p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    // Reveal Animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('is-visible');
-      });
-    }, { threshold: 0.1 });
+    const obs = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('is-visible')), {threshold: 0.1});
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // Countdown Logic
-    const raceDate = new Date("2026-01-25T08:00:00-06:00").getTime();
-    
-    function updateCountdown() {
+    const target = new Date("2026-01-25T08:00:00-06:00").getTime();
+    setInterval(() => {
       const now = new Date().getTime();
-      const diff = raceDate - now;
-
-      if (diff <= 0) {
-        document.getElementById("subtitle").innerText = "¡Llegó el gran día! 🏁";
-        return;
+      const d = target - now;
+      if (d > 0) {
+        document.getElementById("days").innerText = Math.floor(d/(1000*60*60*24));
+        document.getElementById("hours").innerText = Math.floor((d%(1000*60*60*24))/(1000*60*60));
+        document.getElementById("minutes").innerText = Math.floor((d%(1000*60*60))/(1000*60));
+        document.getElementById("seconds").innerText = Math.floor((d%(1000*60))/1000);
       }
+    }, 1000);
 
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("days").innerText = String(d).padStart(2, '0');
-      document.getElementById("hours").innerText = String(h).padStart(2, '0');
-      document.getElementById("minutes").innerText = String(m).padStart(2, '0');
-      document.getElementById("seconds").innerText = String(s).padStart(2, '0');
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // Particles JS
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 60 },
-        "color": { "value": "#1D71B8" },
-        "opacity": { "value": 0.2 },
-        "size": { "value": 3 },
-        "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
-        "move": { "enable": true, "speed": 1 }
-      },
-      "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-      "retina_detect": true
-    });
+    particlesJS("particles-js", {"particles":{"number":{"value":50},"color":{"value":"#1D71B8"},"opacity":{"value":0.2},"size":{"value":3},"line_linked":{"enable":true,"distance":150,"color":"#1D71B8","opacity":0.2,"width":1},"move":{"enable":true,"speed":1}}});
   </script>
 </body>
 </html>
