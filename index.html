@@ -55,21 +55,24 @@
     /* Header (Hero Image) con profundidad + parallax */
     .hero-image {
       position: relative;
-      height: 260px;
-      max-height: 38vh;
+      width: 100%;
+      aspect-ratio: 16 / 9; /* mantiene proporción y permite ver la imagen completa a lo largo */
+      max-height: 45vh;
       overflow: hidden;
       border-bottom: 4px solid var(--azul);
       box-shadow: var(--shadow-sm);
-      background: #fff;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       transform: translateZ(0);
     }
 
     .hero-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* imagen completa de lado a lado */
       object-position: center;
-      transform: translate3d(0, var(--parallaxY, 0px), 0) scale(1.04);
+      transform: translate3d(var(--parallaxX, 0px), var(--parallaxY, 0px), 0);
       will-change: transform;
       filter: saturate(1.05) contrast(1.03);
     }
@@ -98,15 +101,7 @@
       opacity: 0.9;
     }
 
-    @media (max-width: 600px) {
-      .hero-image { height: 170px; max-height: 28vh; }
-    }
-
-
     
-
-    .logo-container img:hover { transform: scale(1.05); }
-
     /* Hero */
     .hero {
       padding: 40px 20px;
@@ -218,9 +213,14 @@
       box-shadow: none !important;
     }
 
-    /* Sección Ruta */
+    /* Sección Ruta (glassmorphism para dejar ver particles) */
     .ruta-section {
-      background: #f4f7f9;
+      /* Más gris y con glassmorphism para que se aprecien las partículas */
+      background: rgba(210, 214, 220, 0.68);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.10);
       padding: 60px 20px;
       text-align: center;
       border-radius: 60px 60px 0 0;
@@ -254,7 +254,10 @@
 
     footer {
       padding: 40px;
-      background: #f4f7f9;
+      background: rgba(240, 242, 245, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,255,255,0.55);
       text-align: center;
       font-size: 0.85rem;
       color: #666;
@@ -275,7 +278,6 @@
       #particles-js { display: none; }
       .hero-image img { transform: none !important; }
       * { scroll-behavior: auto; }
-    }
     }
   </style>
 </head>
@@ -422,12 +424,12 @@
       if (window.particlesJS) {
         window.particlesJS("particles-js", {
           "particles": {
-            "number": { "value": 70, "density": { "enable": true, "value_area": 800 } },
+            "number": { "value": 95, "density": { "enable": true, "value_area": 800 } },
             "color": { "value": "#1D71B8" },
             "shape": { "type": "circle" },
-            "opacity": { "value": 0.25 },
+            "opacity": { "value": 0.4 },
             "size": { "value": 3 },
-            "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.15, "width": 1 },
+            "line_linked": { "enable": true, "distance": 160, "color": "#1D71B8", "opacity": 0.3, "width": 1 },
             "move": { "enable": true, "speed": 1.5 }
           },
           "interactivity": {
@@ -450,30 +452,81 @@
       const header = document.querySelector('.hero-image');
       if (!header) return;
 
-      let ticking = false;
+      // Configuración del efecto
+      const maxShiftY = 44;     // parallax por scroll (más notorio)
+      const maxShiftX = 10;     // parallax por mouse (sutil)
+      const ease = 0.10;        // suavizado (inercia)
 
-      function onScroll() {
-        if (ticking) return;
-        ticking = true;
+      let targetY = 0;
+      let targetX = 0;
+      let currentY = 0;
+      let currentX = 0;
+      let rafId = null;
 
-        window.requestAnimationFrame(() => {
-          const rect = header.getBoundingClientRect();
-
-          // Progreso: 0 cuando está en tope, 1 cuando se ha desplazado la altura del header.
-          const progress = Math.min(1, Math.max(0, (0 - rect.top) / Math.max(1, rect.height)));
-
-          // Máximo desplazamiento (px)
-          const maxShift = 28;
-          const y = Math.round(progress * maxShift);
-
-          header.style.setProperty('--parallaxY', `${y}px`);
-          ticking = false;
-        });
+      function computeScrollTarget() {
+        const rect = header.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (0 - rect.top) / Math.max(1, rect.height)));
+        targetY = Math.round(progress * maxShiftY);
       }
 
-      onScroll();
+      function animate() {
+        currentY += (targetY - currentY) * ease;
+        currentX += (targetX - currentX) * ease;
+
+        header.style.setProperty('--parallaxY', `${currentY.toFixed(2)}px`);
+        header.style.setProperty('--parallaxX', `${currentX.toFixed(2)}px`);
+
+        // Mantén la animación viva mientras haya diferencia perceptible
+        const stillMoving = Math.abs(targetY - currentY) > 0.05 || Math.abs(targetX - currentX) > 0.05;
+        if (stillMoving) {
+          rafId = window.requestAnimationFrame(animate);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function requestAnimate() {
+        if (rafId == null) rafId = window.requestAnimationFrame(animate);
+      }
+
+      function onScroll() {
+        computeScrollTarget();
+        requestAnimate();
+      }
+
+      function onMouseMove(e) {
+        const rect = header.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+
+        // Normaliza a -1..1
+        const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width / 2)));
+        const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height / 2)));
+
+        // Mouse: pequeño empuje lateral y vertical (sin exagerar)
+        targetX = Math.round(dx * maxShiftX);
+        // Sumamos un toque vertical adicional (muy sutil) sin pelear con scroll
+        targetY = Math.round(targetY + (dy * 6));
+
+        requestAnimate();
+      }
+
+      function onMouseLeave() {
+        targetX = 0;
+        requestAnimate();
+      }
+
+      // Inicializa
+      computeScrollTarget();
+      requestAnimate();
+
+      // Scroll wheel / trackpad (subir/bajar)
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
+
+      // Profundidad adicional con mouse
+      header.addEventListener('mousemove', onMouseMove, { passive: true });
+      header.addEventListener('mouseleave', onMouseLeave);
     })();
   </script>
 </body>
