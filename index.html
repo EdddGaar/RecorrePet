@@ -52,7 +52,7 @@
       background-color: #ffffff;
     }
 
-    /* Header full width */
+    /* Header full width (más bajo y mostrando la imagen completa) */
     .hero-image {
       position: relative;
       width: 100vw;
@@ -60,22 +60,18 @@
       right: 50%;
       margin-left: -50vw;
       margin-right: -50vw;
-      height: clamp(210px, 34vh, 460px); /* mejor control responsivo */
+      height: clamp(150px, 22vh, 300px); /* menos alto */
       overflow: hidden;
       border-bottom: 4px solid var(--azul);
-      background: #fff;
-    }
-      overflow: hidden;
-      border-bottom: 4px solid var(--azul);
-      background: #fff;
+      /* fondo suave por si la imagen no llena por proporción */
+      background: linear-gradient(90deg, rgba(10,190,206,0.22), rgba(255,255,255,0.85), rgba(10,190,206,0.22));
     }
 
     .hero-image img {
       display: block;
       width: 100%;
       height: 100%;
-      /* Para que realmente abarque todo el ancho sin márgenes visibles */
-      object-fit: cover;
+      object-fit: contain;  /* se ve completa */
       object-position: center;
     }
 
@@ -152,8 +148,9 @@
     .button-group {
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 15px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap; /* desktop: uno junto al otro */
       margin: 30px 0;
     }
 
@@ -168,7 +165,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 260px;
+      min-width: 240px;
       border: 0;
       user-select: none;
     }
@@ -251,8 +248,15 @@
       color: #666;
     }
 
+    @media (max-width: 760px) {
+      .button-group { flex-wrap: wrap; }
+    }
+
     @media (max-width: 600px) {
       h1.main-title { font-size: 2rem; }
+      .btn { width: 100%; min-width: 0; }
+      .hero-image { height: clamp(150px, 20vh, 220px); }
+    }
       .btn { width: 100%; }
       .hero-image { height: clamp(170px, 26vh, 260px); }
     }
