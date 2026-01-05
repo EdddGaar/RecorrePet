@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Inscripciones | Re Corre Pet 2026</title>
-  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 y vive una experiencia pet-friendly única." />
+  <meta name="description" content="Inscríbete a Re Corre Pet 2026 en Toluca. Corre con tu mejor amigo 🐶 en la ruta de Colón." />
 
   <script type="application/ld+json">
   {
@@ -15,7 +15,7 @@
     "startDate": "2026-01-25T08:00:00-06:00",
     "location": {
       "@type": "Place",
-      "name": "Toluca, Estado de México",
+      "name": "Ciclovía Colón, Toluca",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Toluca",
@@ -287,7 +287,10 @@
   <section class="ruta-section reveal">
     <div class="ruta-content">
       <h2>¿LISTO PARA EL RETO?</h2>
-      <a href="https://www.google.com/maps/search/Toluca+Estado+de+Mexico" target="_blank" rel="noopener" class="btn-ruta">
+      <a href="https://www.google.com/maps/dir/?api=1&origin=El+Águila+Toluca&destination=Ciclovia+Ocho+Cedros+Toluca&travelmode=driving" 
+         target="_blank" 
+         rel="noopener" 
+         class="btn-ruta">
         VER MAPA DE LA RUTA
       </a>
     </div>
@@ -298,6 +301,7 @@
     <p style="margin-top: 10px; font-weight: 700; letter-spacing: 1px;">RECORRE.CLUB</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
     // Reveal Animation
     const observer = new IntersectionObserver((entries) => {
@@ -335,23 +339,18 @@
     updateCountdown();
 
     // Particles JS
-    const pScript = document.createElement('script');
-    pScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
-    pScript.onload = () => {
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 60 },
-          "color": { "value": "#1D71B8" },
-          "opacity": { "value": 0.2 },
-          "size": { "value": 3 },
-          "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
-          "move": { "enable": true, "speed": 1 }
-        },
-        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
-        "retina_detect": true
-      });
-    };
-    document.body.appendChild(pScript);
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60 },
+        "color": { "value": "#1D71B8" },
+        "opacity": { "value": 0.2 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
+        "move": { "enable": true, "speed": 1 }
+      },
+      "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } },
+      "retina_detect": true
+    });
   </script>
 </body>
 </html>
