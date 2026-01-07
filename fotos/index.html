@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Busca tus Fotos | Re Corre Pet 2026</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,16 +17,16 @@
             --naranja: #E94E1B;
             --blanco: #ffffff;
             --fondo: #fcfcfc;
-            --shadow-md: 0 8px 20px rgba(29, 113, 184, 0.2);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--fondo);
             color: #333;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         #particles-js {
@@ -37,31 +37,31 @@
             background-color: #ffffff;
         }
 
-        /* Banner Header con tu imagen */
+        /* Banner Optimizado */
         .hero-banner {
             width: 100%;
-            height: clamp(150px, 25vh, 280px);
+            height: 180px;
             background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center / contain no-repeat;
             background-color: white;
             border-bottom: 4px solid var(--azul);
-            box-shadow: var(--shadow-md);
         }
 
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            text-align: center;
+            padding: 15px;
         }
 
-        /* Caja de Búsqueda Flotante */
+        /* Caja de Búsqueda Adaptable */
         .search-card {
-            max-width: 600px;
-            margin: -40px auto 40px;
+            width: 95%;
+            max-width: 500px;
+            margin: -50px auto 30px;
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
             z-index: 10;
         }
@@ -70,24 +70,32 @@
             color: var(--azul);
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         .search-group {
             display: flex;
+            flex-direction: column; /* Apilado en móvil por defecto */
             gap: 10px;
+        }
+
+        /* Fila de controles */
+        .input-row {
+            display: flex;
+            gap: 8px;
+            width: 100%;
         }
 
         input {
             flex: 1;
-            padding: 15px 20px;
+            padding: 14px;
             border: 2px solid #eee;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 16px; /* Evita zoom automático en iPhone */
             font-family: 'Montserrat';
             outline: none;
-            transition: border-color 0.3s;
         }
 
         input:focus { border-color: var(--azul); }
@@ -96,11 +104,12 @@
             background-color: var(--naranja);
             color: white;
             border: none;
-            padding: 0 25px;
+            padding: 14px;
             border-radius: 12px;
             font-weight: 900;
             cursor: pointer;
-            transition: transform 0.2s;
+            width: 100%; /* Botón ancho en móvil */
+            text-transform: uppercase;
         }
 
         .btn-face {
@@ -113,67 +122,85 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.3s;
         }
 
-        .btn-search:hover, .btn-face:hover { transform: scale(1.05); }
+        /* Mensajes de Estado */
+        .status-msg {
+            margin: 20px 0;
+            font-weight: 700;
+            color: var(--azul);
+            text-align: center;
+            padding: 10px;
+            display: none;
+        }
 
-        /* Galería */
+        /* Galería Responsiva */
         #gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+            grid-template-columns: 1fr; /* 1 columna en móvil pequeño */
+            gap: 20px;
+            padding-bottom: 50px;
+        }
+
+        @media (min-width: 600px) {
+            #gallery { grid-template-columns: repeat(2, 1fr); }
+            .search-group { flex-direction: row; }
+            .btn-search { width: auto; }
+            h1 { font-size: 1.8rem; }
+        }
+
+        @media (min-width: 900px) {
+            #gallery { grid-template-columns: repeat(3, 1fr); }
         }
 
         .photo-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border-bottom: 4px solid var(--azul);
         }
 
-        .photo-card:hover { transform: translateY(-8px); }
-
         .photo-card img {
             width: 100%;
-            height: 280px;
+            height: auto;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
+            display: block;
         }
 
         .photo-info {
             padding: 15px;
-            text-align: left;
         }
 
         .dorsal-tag {
             background: #eef6ff;
             color: var(--azul);
-            padding: 4px 10px;
+            padding: 5px 10px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
         }
 
         .btn-download {
             display: block;
-            margin-top: 12px;
+            margin-top: 10px;
             text-align: center;
             text-decoration: none;
             color: var(--naranja);
             font-weight: 900;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border: 2px solid var(--naranja);
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
-            transition: all 0.3s;
         }
 
-        .btn-download:hover { background: var(--naranja); color: white; }
-
-        #noResults { margin: 50px auto; color: #999; font-weight: 700; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
@@ -184,80 +211,100 @@
         <div class="search-card">
             <h1>Busca tus fotos</h1>
             <div class="search-group">
-                <input type="text" id="searchInput" placeholder="Tu número de dorsal...">
-                <button class="btn-search" onclick="buscarPorDorsal()">BUSCAR</button>
-                <button class="btn-face" onclick="abrirCamara()" title="Buscar por Selfie">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
-                </button>
+                <div class="input-row">
+                    <input type="number" id="searchInput" placeholder="N° Dorsal..." inputmode="numeric">
+                    <button class="btn-face" onclick="abrirCamara()">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+                    </button>
+                </div>
+                <button class="btn-search" onclick="buscarPorDorsal()">BUSCAR MOMENTOS</button>
             </div>
-            <input type="file" id="selfieInput" accept="image/*" capture="user" style="display:none" onchange="alert('¡Selfie recibida! Amazon Rekognition está buscando coincidencias en la colección recorrepet_rostros...')">
+            <input type="file" id="selfieInput" accept="image/*" capture="user" style="display:none" onchange="subirSelfie(event)">
         </div>
 
+        <div id="statusMsg" class="status-msg">🔍 Buscando tus fotos...</div>
+        <div id="noResults" class="status-msg" style="color: #666;">🐾 No encontramos fotos con ese dorsal.<br>¡Intenta con otro número!</div>
+
         <div id="gallery"></div>
-        <div id="noResults" style="display:none;">🐾 No encontramos fotos con ese número. ¡Prueba con otro!</div>
     </main>
+
+    <footer>RECORRE.CLUB 2026</footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // CONFIGURACIÓN SUPABASE
         const _supabase = supabase.createClient(
             'https://fjdkteumrfeiaprgumsa.supabase.co', 
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI'
         );
 
-        function abrirCamara() {
-            document.getElementById('selfieInput').click();
-        }
+        function abrirCamara() { document.getElementById('selfieInput').click(); }
 
-        async function buscarPorDorsal(dorsal = '') {
-            const input = document.getElementById('searchInput').value.trim();
-            const term = dorsal || input;
+        async function buscarPorDorsal() {
+            const term = document.getElementById('searchInput').value.trim();
             const gallery = document.getElementById('gallery');
+            const statusMsg = document.getElementById('statusMsg');
             const noResults = document.getElementById('noResults');
 
-            gallery.innerHTML = '<p style="grid-column: 1/-1;">Cargando tus momentos...</p>';
+            // Limpiar y mostrar cargando
+            gallery.innerHTML = '';
             noResults.style.display = 'none';
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = term ? `🔍 Buscando dorsal ${term}...` : '🖼️ Cargando galería completa...';
 
             let query = _supabase.from('fotos').select('*').order('created_at', { ascending: false });
             
             if (term) {
+                // Filtro para JSONB
                 query = query.filter('dorsales', 'cs', `["${term}"]`);
             }
 
             const { data, error } = await query;
 
-            gallery.innerHTML = '';
-            if (data && data.length > 0) {
-                data.forEach(foto => {
-                    const card = document.createElement('div');
-                    card.className = 'photo-card';
-                    card.innerHTML = `
-                        <img src="${foto.url_foto}" loading="lazy">
-                        <div class="photo-info">
-                            <span class="dorsal-tag">Dorsal: ${foto.dorsales.join(', ') || 'Sin número'}</span>
-                            <a href="${foto.url_foto}" target="_blank" class="btn-download">VER ORIGINAL</a>
-                        </div>
-                    `;
-                    gallery.appendChild(card);
-                });
-            } else {
-                noResults.style.display = 'block';
+            statusMsg.style.display = 'none';
+
+            if (error) {
+                statusMsg.style.display = 'block';
+                statusMsg.innerText = '❌ Error de conexión. Reintenta.';
+                return;
             }
+
+            if (!data || data.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+
+            // Renderizar fotos
+            data.forEach(foto => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                const dorsalesStr = Array.isArray(foto.dorsales) ? foto.dorsales.join(', ') : 'S/N';
+                card.innerHTML = `
+                    <img src="${foto.url_foto}" loading="lazy">
+                    <div class="photo-info">
+                        <span class="dorsal-tag">Dorsal: ${dorsalesStr}</span>
+                        <a href="${foto.url_foto}" target="_blank" class="btn-download">DESCARGAR FOTO</a>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
         }
 
-        // Cargar galería completa al inicio
-        buscarPorDorsal();
+        function subirSelfie(event) {
+            alert("🤳 ¡Selfie recibida! Amazon Rekognition buscará tu cara en la base de datos...");
+            // Aquí iría la lógica de búsqueda facial
+        }
 
-        // Efecto Partículas
+        // Cargar galería al inicio
+        window.onload = buscarPorDorsal;
+
         particlesJS("particles-js", {
             "particles": {
-                "number": { "value": 60 },
+                "number": { "value": 40 },
                 "color": { "value": "#1D71B8" },
-                "shape": { "type": "circle" },
                 "opacity": { "value": 0.2 },
                 "size": { "value": 3 },
-                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1, "width": 1 },
-                "move": { "enable": true, "speed": 1.5 }
+                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.1 },
+                "move": { "enable": true, "speed": 1 }
             }
         });
     </script>
