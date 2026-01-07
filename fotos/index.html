@@ -16,40 +16,41 @@
 
         .hero {
             width: 100%;
-            height: 180px;
+            height: 150px;
             background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center/contain no-repeat white;
             border-bottom: 5px solid var(--azul);
         }
 
         .container { padding: 15px; max-width: 500px; margin: 0 auto; }
 
-        /* --- SECCIÓN DE INSTRUCCIONES CRÍTICAS --- */
-        .help-box {
+        /* --- GUÍA DE AYUDA PARA CÁMARA --- */
+        .browser-help {
             background: #fff3cd;
-            border: 2px dashed #ffeeba;
+            border: 2px solid #ffeeba;
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
-            text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #856404;
         }
-        .help-box b { color: #000; display: block; margin-bottom: 5px; font-size: 0.95rem; }
-        .help-steps { display: flex; justify-content: space-around; margin-top: 10px; font-size: 0.75rem; font-weight: bold; }
-        .step { flex: 1; padding: 5px; }
+        .browser-help b { color: #000; font-size: 0.9rem; display: block; margin-bottom: 5px; text-align: center;}
+        
+        .instrucciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .platform { background: rgba(255,255,255,0.5); padding: 8px; border-radius: 8px; }
+        .platform i { display: block; margin-bottom: 5px; font-weight: 900; color: #000; }
 
-        /* --- TARJETA DE BÚSQUEDA --- */
+        /* --- TARJETA PRINCIPAL --- */
         .main-card {
             background: white;
             padding: 25px;
             border-radius: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-top: -40px;
+            margin-top: -30px;
             position: relative;
             z-index: 10;
         }
 
-        h1 { color: var(--azul); font-weight: 900; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 1.4rem; }
+        h1 { color: var(--azul); font-weight: 900; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 1.3rem; }
 
         .section-label { display: block; font-size: 0.7rem; font-weight: 900; color: #bbb; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
 
@@ -60,16 +61,16 @@
         .btn-naranja { background: var(--naranja); color: white; padding: 0 20px; }
         
         .ai-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .btn-ai { background: white; border: 2px solid #eee; color: var(--azul); padding: 15px 5px; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .btn-ai { background: white; border: 2px solid #eee; color: var(--azul); padding: 15px 5px; font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .btn-ai svg { width: 24px; height: 24px; }
         .btn-ai:active { background: #f0f7ff; border-color: var(--azul); }
-
-        .btn-full { width: 100%; background: #eee; color: #666; padding: 10px; font-size: 0.7rem; margin-top: 10px; }
 
         #status { text-align: center; margin: 20px 0; font-weight: 700; color: var(--azul); font-size: 0.9rem; }
         
         .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .photo { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border-bottom: 3px solid var(--azul); }
+        .photo { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border-bottom: 3px solid var(--azul); display: block; }
+        
+        .footer-btn { width: 100%; background: #eee; color: #666; padding: 12px; font-size: 0.7rem; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -78,25 +79,32 @@
 
     <main class="container">
         
-        <div class="help-box">
-            <b>🚀 ¡LEER ANTES DE BUSCAR!</b>
-            Si vienes de WhatsApp o Facebook y la cámara no funciona:
-            <div class="help-steps">
-                <div class="step">1. Toca los 3 puntos (⋮) arriba</div>
-                <div class="step">2. "Abrir en Chrome o Safari"</div>
+        <div class="browser-help">
+            <b>⚠️ ¡IMPORTANTE PARA USAR LA CÁMARA!</b>
+            Si estás en WhatsApp/Facebook, la cámara no funcionará hasta que hagas esto:
+            
+            <div class="instrucciones">
+                <div class="platform">
+                    <i>🤖 ANDROID</i>
+                    Toca los 3 puntos <b>(⋮)</b> y busca <b>"Abrir en el navegador"</b> o el icono del mundo 🌐.
+                </div>
+                <div class="platform">
+                    <i>🍎 iPHONE</i>
+                    Toca el icono de compartir <b>(📤)</b> y busca <b>"Abrir en Safari"</b>.
+                </div>
             </div>
         </div>
 
         <div class="main-card">
             <h1>Busca tus fotos</h1>
 
-            <span class="section-label">MÉTODO 1: TU NÚMERO</span>
+            <span class="section-label">OPCIÓN 1: POR DORSAL</span>
             <div class="input-group">
-                <input type="number" id="numDorsal" placeholder="Escribe tu dorsal" inputmode="numeric">
+                <input type="number" id="numDorsal" placeholder="Escribe tu número" inputmode="numeric">
                 <button class="btn btn-naranja" onclick="buscarDorsal()">OK</button>
             </div>
 
-            <span class="section-label">MÉTODO 2: TU ROSTRO (IA)</span>
+            <span class="section-label">OPCIÓN 2: POR TU ROSTRO</span>
             <div class="ai-options">
                 <button class="btn btn-ai" onclick="activarIA('user')">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -109,7 +117,7 @@
             </div>
             <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
 
-            <button class="btn btn-full" onclick="location.reload()">REINICIAR / VER TODO</button>
+            <button class="btn footer-btn" onclick="location.reload()">REINICIAR GALERÍA</button>
         </div>
 
         <div id="status">🐾 Cargando momentos...</div>
@@ -162,7 +170,7 @@
             g.innerHTML = "";
             document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin resultados.";
             fotos.forEach(f => {
-                g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="photo"></a>`;
+                g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="photo" loading="lazy"></a>`;
             });
         }
 
