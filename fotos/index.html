@@ -3,178 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Busca tus Fotos | Re Corre Pet 2026</title>
-    
+    <title>Busca tus Fotos | Re Corre Pet</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
         :root { --azul: #1D71B8; --naranja: #E94E1B; --fondo: #f4f7f9; }
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--fondo); color: #333; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--fondo); text-align: center; }
 
-        .hero {
-            width: 100%;
-            height: 150px;
-            background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center/contain no-repeat white;
-            border-bottom: 5px solid var(--azul);
+        /* Estilo Pro */
+        .header { width: 100%; height: 140px; background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center/contain no-repeat white; border-bottom: 5px solid var(--azul); }
+        .container { padding: 15px; max-width: 450px; margin: 0 auto; }
+        
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -30px; }
+        
+        /* Alerta Crítica */
+        .critical-alert { 
+            display: none; 
+            background: #ffeded; 
+            border: 2px solid #ff5252; 
+            color: #b71c1c; 
+            padding: 15px; 
+            border-radius: 15px; 
+            margin-bottom: 20px; 
+            font-size: 0.85rem; 
         }
 
-        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; font-size: 0.9rem; }
+        .btn-azul { background: var(--azul); color: white; }
+        .btn-naranja { background: var(--naranja); color: white; }
+        .btn-fix { background: #00c853; color: white; animation: pulse 2s infinite; }
 
-        /* --- GUÍA DE AYUDA ACTUALIZADA --- */
-        .browser-help {
-            background: #fff3cd;
-            border: 2px solid #ffeeba;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: #856404;
-            text-align: center;
-        }
-        .browser-help b { color: #000; font-size: 1rem; display: block; margin-bottom: 8px; }
-        
-        .instrucciones { text-align: left; background: rgba(255,255,255,0.4); padding: 10px; border-radius: 10px; line-height: 1.4; }
-        .instrucciones p { margin-bottom: 8px; }
-        .instrucciones p:last-child { margin-bottom: 0; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
-        /* --- TARJETA PRINCIPAL --- */
-        .main-card {
-            background: white;
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-top: -30px;
-            position: relative;
-            z-index: 10;
-        }
-
-        h1 { color: var(--azul); font-weight: 900; text-align: center; margin-bottom: 20px; text-transform: uppercase; font-size: 1.3rem; }
-
-        .section-label { display: block; font-size: 0.7rem; font-weight: 900; color: #bbb; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
-
-        .input-group { display: flex; gap: 8px; margin-bottom: 25px; }
-        input[type="number"] { flex: 1; padding: 14px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; font-family: 'Montserrat'; outline: none; }
-        
-        .btn { border: none; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
-        .btn-naranja { background: var(--naranja); color: white; padding: 0 20px; }
-        
-        .ai-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .btn-ai { background: white; border: 2px solid #eee; color: var(--azul); padding: 15px 5px; font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .btn-ai svg { width: 24px; height: 24px; }
-        .btn-ai:active { background: #f0f7ff; border-color: var(--azul); }
-
-        #status { text-align: center; margin: 20px 0; font-weight: 700; color: var(--azul); font-size: 0.9rem; }
-        
-        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .photo { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; border-bottom: 3px solid var(--azul); display: block; }
-        
-        .footer-btn { width: 100%; background: #eee; color: #666; padding: 12px; font-size: 0.7rem; margin-top: 15px; }
+        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; margin-top: 10px; font-size: 16px; outline: none; }
+        #gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border-bottom: 3px solid var(--azul); }
     </style>
 </head>
 <body>
 
-    <div class="hero"></div>
+<div class="header"></div>
 
-    <main class="container">
+<main class="container">
+    <div id="dangerZone" class="critical-alert">
+        <b>⚠️ BLOQUEO DE CÁMARA DETECTADO</b><br>
+        Estás navegando dentro de WhatsApp/Facebook. Por seguridad, estas apps bloquean tu cámara.
+        <button class="btn btn-fix" onclick="fixBrowser()">✅ CORREGIR AHORA</button>
+    </div>
+
+    <div class="card">
+        <h1 style="color:var(--azul); font-size:1.4rem; margin-bottom:15px;">ENCUENTRA TU FOTO</h1>
         
-        <div class="browser-help">
-            <b>⚠️ ¡AVISO PARA LA CÁMARA!</b>
-            Si vienes de WhatsApp o Facebook y la cámara no abre, sigue estos pasos:
-            
-            <div class="instrucciones">
-                <p>1. Toca los <b>tres puntos (⋮)</b> o el botón <b>Compartir</b>.</p>
-                <p>2. Selecciona la opción <b>"Agregar a pantalla princ."</b> o <b>"Abrir en el navegador"</b>.</p>
-                <p>3. Esto permitirá que tu celular te pida permiso para usar la cámara.</p>
-            </div>
-        </div>
+        <input type="number" id="dorsal" placeholder="Tu número de dorsal" inputmode="numeric">
+        <button class="btn btn-naranja" onclick="buscarDorsal()">Buscar por Número</button>
 
-        <div class="main-card">
-            <h1>Busca tus fotos</h1>
+        <div style="margin: 25px 0; height: 1px; background: #eee;"></div>
 
-            <span class="section-label">OPCIÓN 1: POR DORSAL</span>
-            <div class="input-group">
-                <input type="number" id="numDorsal" placeholder="Escribe tu número" inputmode="numeric">
-                <button class="btn btn-naranja" onclick="buscarDorsal()">OK</button>
-            </div>
+        <button class="btn btn-azul" id="cameraBtn" onclick="abrirCamara()">USAR CÁMARA / SUBIR FOTO</button>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
+        
+        <p style="font-size: 10px; color: #999; margin-top: 15px;">RECORRE.CLUB v2.0</p>
+    </div>
 
-            <span class="section-label">OPCIÓN 2: POR TU ROSTRO</span>
-            <div class="ai-options">
-                <button class="btn btn-ai" onclick="activarIA('user')">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    TOMAR SELFIE
-                </button>
-                <button class="btn btn-ai" onclick="activarIA('gallery')">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    SUBIR FOTO
-                </button>
-            </div>
-            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
+    <div id="status" style="margin-top:20px; font-weight:700; color:var(--azul);"></div>
+    <div id="gallery"></div>
+</main>
 
-            <button class="btn footer-btn" onclick="location.reload()">VER TODA LA GALERÍA</button>
-        </div>
+<script>
+    const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
 
-        <div id="status">🐾 Cargando fotos...</div>
-        <div id="gallery" class="gallery"></div>
+    // DETECTOR DE JAULA (WhatsApp, FB, Instagram)
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isLocked = (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1) || (ua.indexOf("Instagram") > -1) || (ua.indexOf("WhatsApp") > -1);
 
-    </main>
+    if (isLocked) {
+        document.getElementById('dangerZone').style.display = 'block';
+        // Deshabilitamos el botón de cámara original para forzar el arreglo
+        document.getElementById('cameraBtn').style.opacity = "0.5";
+        document.getElementById('cameraBtn').innerText = "CÁMARA BLOQUEADA";
+    }
 
-    <script>
-        const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
-
-        function activarIA(type) {
-            const fileIn = document.getElementById('fileInput');
-            fileIn.setAttribute('capture', type === 'user' ? 'user' : '');
-            fileIn.click();
+    function fixBrowser() {
+        // Truco de intención para Android: Forzar Chrome
+        if (/Android/i.test(navigator.userAgent)) {
+            window.location.href = "intent://" + window.location.host + window.location.pathname + "#Intent;scheme=https;package=com.android.chrome;end";
+        } else {
+            // Para iOS no hay intent directo, mostramos mensaje
+            alert("En iPhone: Toca el icono de compartir (cuadrado con flecha) y selecciona 'Abrir en Safari'");
         }
+    }
 
-        async function buscarDorsal() {
-            const val = document.getElementById('numDorsal').value;
-            if(!val) return;
-            document.getElementById('status').innerText = "🔍 Buscando...";
-            const { data } = await _supabase.from('fotos').select('*').filter('dorsales', 'cs', `["${val}"]`);
-            mostrar(data);
+    function abrirCamara() {
+        if (isLocked) {
+            alert("Por favor, presiona el botón verde 'CORREGIR AHORA' arriba para habilitar la cámara.");
+            return;
         }
+        document.getElementById('fileInput').click();
+    }
 
-        async function procesarIA(event) {
-            const file = event.target.files[0];
-            if(!file) return;
+    // --- LÓGICA DE BÚSQUEDA ---
+    async function buscarDorsal() {
+        const n = document.getElementById('dorsal').value;
+        if(!n) return;
+        document.getElementById('status').innerText = "🔍 Buscando...";
+        const { data } = await _supabase.from('fotos').select('*').filter('dorsales', 'cs', `["${n}"]`);
+        mostrar(data);
+    }
 
-            document.getElementById('status').innerText = "🤳 Analizando rostro...";
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = async () => {
-                const b64 = reader.result.split(',')[1];
-                try {
-                    const { data, error } = await _supabase.functions.invoke('buscar-por-rostro', { body: { image: b64 } });
-                    if(error || !data.matches || data.matches.length === 0) {
-                        document.getElementById('status').innerText = "❌ No hay coincidencias.";
-                        return;
-                    }
-                    const { data: fotos } = await _supabase.from('fotos').select('*').in('face_id', data.matches);
-                    mostrar(fotos);
-                } catch (e) {
-                    document.getElementById('status').innerText = "❌ Error de conexión.";
-                }
-            };
-        }
-
-        function mostrar(fotos) {
-            const g = document.getElementById('gallery');
-            g.innerHTML = "";
-            document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin resultados.";
-            fotos.forEach(f => {
-                g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="photo" loading="lazy"></a>`;
-            });
-        }
-
-        window.onload = async () => {
-            const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(20);
-            mostrar(data);
-            document.getElementById('status').innerText = "✨ Galería Reciente";
+    async function procesarIA(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        document.getElementById('status').innerText = "🤳 Analizando rostro...";
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
+            const b64 = reader.result.split(',')[1];
+            const { data, error } = await _supabase.functions.invoke('buscar-por-rostro', { body: { image: b64 } });
+            if(data?.matches?.length > 0) {
+                const { data: fotos } = await _supabase.from('fotos').select('*').in('face_id', data.matches);
+                mostrar(fotos);
+            } else {
+                document.getElementById('status').innerText = "❌ Sin coincidencias.";
+            }
         };
-    </script>
+    }
+
+    function mostrar(fotos) {
+        const g = document.getElementById('gallery');
+        g.innerHTML = "";
+        document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin resultados.";
+        fotos.forEach(f => {
+            g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="thumb"></a>`;
+        });
+    }
+</script>
 </body>
 </html>
