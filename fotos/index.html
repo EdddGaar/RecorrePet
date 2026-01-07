@@ -15,9 +15,7 @@
         :root {
             --azul: #1D71B8;
             --naranja: #E94E1B;
-            --blanco: #ffffff;
             --fondo: #fcfcfc;
-            --shadow-md: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -37,10 +35,9 @@
             background-color: #ffffff;
         }
 
-        /* Banner Optimizado */
         .hero-banner {
             width: 100%;
-            height: 180px;
+            height: 160px;
             background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center / contain no-repeat;
             background-color: white;
             border-bottom: 4px solid var(--azul);
@@ -53,11 +50,10 @@
             padding: 15px;
         }
 
-        /* Caja de Búsqueda Adaptable */
         .search-card {
             width: 95%;
             max-width: 500px;
-            margin: -50px auto 30px;
+            margin: -40px auto 30px;
             background: white;
             padding: 20px;
             border-radius: 20px;
@@ -77,11 +73,10 @@
 
         .search-group {
             display: flex;
-            flex-direction: column; /* Apilado en móvil por defecto */
+            flex-direction: column;
             gap: 10px;
         }
 
-        /* Fila de controles */
         .input-row {
             display: flex;
             gap: 8px;
@@ -93,7 +88,7 @@
             padding: 14px;
             border: 2px solid #eee;
             border-radius: 12px;
-            font-size: 16px; /* Evita zoom automático en iPhone */
+            font-size: 16px;
             font-family: 'Montserrat';
             outline: none;
         }
@@ -108,7 +103,6 @@
             border-radius: 12px;
             font-weight: 900;
             cursor: pointer;
-            width: 100%; /* Botón ancho en móvil */
             text-transform: uppercase;
         }
 
@@ -124,20 +118,20 @@
             justify-content: center;
         }
 
-        /* Mensajes de Estado */
         .status-msg {
             margin: 20px 0;
             font-weight: 700;
             color: var(--azul);
             text-align: center;
-            padding: 10px;
             display: none;
+            padding: 10px;
+            background: rgba(29, 113, 184, 0.05);
+            border-radius: 10px;
         }
 
-        /* Galería Responsiva */
         #gallery {
             display: grid;
-            grid-template-columns: 1fr; /* 1 columna en móvil pequeño */
+            grid-template-columns: 1fr;
             gap: 20px;
             padding-bottom: 50px;
         }
@@ -145,7 +139,7 @@
         @media (min-width: 600px) {
             #gallery { grid-template-columns: repeat(2, 1fr); }
             .search-group { flex-direction: row; }
-            .btn-search { width: auto; }
+            .btn-search { width: auto; padding: 0 25px; }
             h1 { font-size: 1.8rem; }
         }
 
@@ -159,7 +153,10 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border-bottom: 4px solid var(--azul);
+            transition: transform 0.3s;
         }
+
+        .photo-card:hover { transform: translateY(-5px); }
 
         .photo-card img {
             width: 100%;
@@ -169,9 +166,7 @@
             display: block;
         }
 
-        .photo-info {
-            padding: 15px;
-        }
+        .photo-info { padding: 15px; }
 
         .dorsal-tag {
             background: #eef6ff;
@@ -193,14 +188,12 @@
             border: 2px solid var(--naranja);
             padding: 10px;
             border-radius: 8px;
+            transition: 0.3s;
         }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #999;
-            font-size: 0.8rem;
-        }
+        .btn-download:hover { background: var(--naranja); color: white; }
+
+        footer { text-align: center; padding: 30px; color: #999; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -213,18 +206,16 @@
             <div class="search-group">
                 <div class="input-row">
                     <input type="number" id="searchInput" placeholder="N° Dorsal..." inputmode="numeric">
-                    <button class="btn-face" onclick="abrirCamara()">
+                    <button class="btn-face" onclick="abrirCamara()" title="Buscar por Selfie">
                         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
                     </button>
                 </div>
-                <button class="btn-search" onclick="buscarPorDorsal()">BUSCAR MOMENTOS</button>
+                <button class="btn-search" onclick="buscarPorDorsal()">BUSCAR</button>
             </div>
             <input type="file" id="selfieInput" accept="image/*" capture="user" style="display:none" onchange="subirSelfie(event)">
         </div>
 
-        <div id="statusMsg" class="status-msg">🔍 Buscando tus fotos...</div>
-        <div id="noResults" class="status-msg" style="color: #666;">🐾 No encontramos fotos con ese dorsal.<br>¡Intenta con otro número!</div>
-
+        <div id="statusMsg" class="status-msg">🔍 Procesando...</div>
         <div id="gallery"></div>
     </main>
 
@@ -232,6 +223,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Configuración de Supabase
         const _supabase = supabase.createClient(
             'https://fjdkteumrfeiaprgumsa.supabase.co', 
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI'
@@ -239,41 +231,12 @@
 
         function abrirCamara() { document.getElementById('selfieInput').click(); }
 
-        async function buscarPorDorsal() {
-            const term = document.getElementById('searchInput').value.trim();
+        // Función para renderizar fotos en la cuadrícula
+        function renderizarFotos(data) {
             const gallery = document.getElementById('gallery');
-            const statusMsg = document.getElementById('statusMsg');
-            const noResults = document.getElementById('noResults');
-
-            // Limpiar y mostrar cargando
             gallery.innerHTML = '';
-            noResults.style.display = 'none';
-            statusMsg.style.display = 'block';
-            statusMsg.innerText = term ? `🔍 Buscando dorsal ${term}...` : '🖼️ Cargando galería completa...';
+            if (!data || data.length === 0) return;
 
-            let query = _supabase.from('fotos').select('*').order('created_at', { ascending: false });
-            
-            if (term) {
-                // Filtro para JSONB
-                query = query.filter('dorsales', 'cs', `["${term}"]`);
-            }
-
-            const { data, error } = await query;
-
-            statusMsg.style.display = 'none';
-
-            if (error) {
-                statusMsg.style.display = 'block';
-                statusMsg.innerText = '❌ Error de conexión. Reintenta.';
-                return;
-            }
-
-            if (!data || data.length === 0) {
-                noResults.style.display = 'block';
-                return;
-            }
-
-            // Renderizar fotos
             data.forEach(foto => {
                 const card = document.createElement('div');
                 card.className = 'photo-card';
@@ -282,21 +245,79 @@
                     <img src="${foto.url_foto}" loading="lazy">
                     <div class="photo-info">
                         <span class="dorsal-tag">Dorsal: ${dorsalesStr}</span>
-                        <a href="${foto.url_foto}" target="_blank" class="btn-download">DESCARGAR FOTO</a>
+                        <a href="${foto.url_foto}" target="_blank" class="btn-download">DESCARGAR</a>
                     </div>
                 `;
                 gallery.appendChild(card);
             });
         }
 
-        function subirSelfie(event) {
-            alert("🤳 ¡Selfie recibida! Amazon Rekognition buscará tu cara en la base de datos...");
-            // Aquí iría la lógica de búsqueda facial
+        // Búsqueda por número
+        async function buscarPorDorsal() {
+            const term = document.getElementById('searchInput').value.trim();
+            const statusMsg = document.getElementById('statusMsg');
+            
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = term ? `🔍 Buscando dorsal ${term}...` : "🖼️ Cargando galería completa...";
+
+            let query = _supabase.from('fotos').select('*').order('created_at', { ascending: false });
+            if (term) query = query.filter('dorsales', 'cs', `["${term}"]`);
+
+            const { data, error } = await query;
+            statusMsg.style.display = 'none';
+
+            if (data && data.length > 0) {
+                renderizarFotos(data);
+            } else {
+                statusMsg.style.display = 'block';
+                statusMsg.innerText = "🐾 No se encontraron fotos.";
+                document.getElementById('gallery').innerHTML = '';
+            }
         }
 
-        // Cargar galería al inicio
+        // Búsqueda por Selfie (IA Facial)
+        async function subirSelfie(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const statusMsg = document.getElementById('statusMsg');
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = "🤳 Analizando tu rostro con IA...";
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+                const base64Image = reader.result.split(',')[1];
+
+                try {
+                    // Llamamos a la Edge Function de Supabase
+                    const { data, error } = await _supabase.functions.invoke('buscar-por-rostro', {
+                        body: { image: base64Image }
+                    });
+
+                    if (error || !data.matches || data.matches.length === 0) {
+                        statusMsg.innerText = "❌ No encontramos coincidencias faciales.";
+                        return;
+                    }
+
+                    // Buscamos las fotos en la DB
+                    const { data: fotosFiltradas } = await _supabase
+                        .from('fotos')
+                        .select('*')
+                        .in('face_id', data.matches);
+
+                    statusMsg.innerText = `✨ ¡Encontramos ${fotosFiltradas.length} fotos!`;
+                    renderizarFotos(fotosFiltradas);
+
+                } catch (err) {
+                    statusMsg.innerText = "❌ Error en el servidor de IA.";
+                }
+            };
+        }
+
         window.onload = buscarPorDorsal;
 
+        // Efecto visual de fondo
         particlesJS("particles-js", {
             "particles": {
                 "number": { "value": 40 },
