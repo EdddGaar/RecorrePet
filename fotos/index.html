@@ -10,24 +10,40 @@
         :root { --azul: #1D71B8; --naranja: #E94E1B; --fondo: #f4f7f9; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: var(--fondo); text-align: center; color: #333; }
+        
         .header { width: 100%; height: 140px; background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center/contain no-repeat white; border-bottom: 5px solid var(--azul); }
         .container { padding: 15px; max-width: 450px; margin: 0 auto; }
-        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -30px; }
         
-        /* BOTÓN DE ESCAPE SI HAY BLOQUEO */
-        #unlockBtn { 
-            display: none; background: #00c853; color: white; padding: 18px; 
-            border-radius: 15px; font-weight: 900; margin-bottom: 20px; border: none; 
-            width: 100%; font-size: 1rem; cursor: pointer; animation: pulse 2s infinite;
+        /* PANEL DE AYUDA (Siempre visible) */
+        .copy-box {
+            background: #fff3cd; border: 2px dashed #ffeeba; padding: 15px;
+            border-radius: 15px; margin-bottom: 20px; font-size: 0.85rem;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        .link-text { 
+            background: white; border: 1px solid #ddd; padding: 8px; 
+            display: block; margin: 10px 0; font-weight: 900; color: var(--azul); border-radius: 8px;
+        }
+
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -30px; }
+        h1 { color: var(--azul); font-size: 1.4rem; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; }
+
+        .section-label { font-size: 0.7rem; font-weight: 900; color: #bbb; margin: 15px 0 10px; display: block; letter-spacing: 1px; }
+
+        /* Inputs y Botones */
+        .input-group { display: flex; gap: 10px; }
+        input[type="number"] { flex: 1; padding: 14px; border: 2px solid #eee; border-radius: 12px; font-size: 16px; font-family: 'Montserrat'; outline: none; }
+        .btn { border: none; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-naranja { background: var(--naranja); color: white; padding: 0 20px; }
         
-        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
-        .btn-azul { background: var(--azul); color: white; }
-        .btn-naranja { background: var(--naranja); color: white; }
-        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; margin-top: 10px; font-size: 16px; font-family: 'Montserrat'; }
-        #gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border-bottom: 3px solid var(--azul); }
+        /* Botones de IA */
+        .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-ai { background: white; border: 2px solid #eee; color: var(--azul); padding: 15px 10px; font-size: 0.7rem; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .btn-ai svg { width: 24px; height: 24px; }
+        .btn-ai:active { border-color: var(--azul); background: #f0f7ff; }
+
+        #status { margin: 20px 0; font-weight: 700; color: var(--azul); font-size: 0.9rem; }
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .photo { width: 100%; border-radius: 12px; aspect-ratio: 1/1; object-fit: cover; border-bottom: 3px solid var(--azul); }
     </style>
 </head>
 <body>
@@ -35,78 +51,73 @@
 <div class="header"></div>
 
 <main class="container">
-    <button id="unlockBtn" onclick="forzarSalida()">
-        🔓 TOCAR AQUÍ PARA HABILITAR CÁMARA
-    </button>
-
-    <div class="card">
-        <h1 style="color:var(--azul); font-size:1.4rem; margin-bottom:15px; font-weight:900;">RE CORRE PET</h1>
-        
-        <input type="number" id="dorsal" placeholder="Número de dorsal" inputmode="numeric">
-        <button class="btn btn-naranja" onclick="buscarDorsal()">BUSCAR POR DORSAL</button>
-
-        <div style="margin: 25px 0; height: 1px; background: #eee;"></div>
-
-        <button class="btn btn-azul" id="cameraBtn" onclick="abrirCamara()">
-            📸 BUSCAR POR ROSTRO
-        </button>
-        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
+    
+    <div class="copy-box">
+        <b>📸 ¿NO ABRE TU CÁMARA?</b>
+        Copia y pega este link en tu navegador (Chrome o Safari) para habilitar la búsqueda facial:
+        <span class="link-text" onclick="copiarLink()">recorre.club/fotos</span>
+        <small>(Toca el link para copiarlo)</small>
     </div>
 
-    <div id="status" style="margin-top:20px; font-weight:700; color:var(--azul);"></div>
-    <div id="gallery"></div>
+    <div class="card">
+        <h1>Busca tus fotos</h1>
+
+        <span class="section-label">MÉTODO 1: POR NÚMERO</span>
+        <div class="input-group">
+            <input type="number" id="numDorsal" placeholder="Tu dorsal" inputmode="numeric">
+            <button class="btn btn-naranja" onclick="buscarDorsal()">BUSCAR</button>
+        </div>
+
+        <span class="section-label">MÉTODO 2: POR ROSTRO (IA)</span>
+        <div class="ai-grid">
+            <button class="btn btn-ai" onclick="lanzarCamara('user')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                TOMAR SELFIE
+            </button>
+            <button class="btn btn-ai" onclick="lanzarCamara('gallery')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                SUBIR FOTO
+            </button>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
+
+        <button onclick="location.reload()" style="background:none; border:none; color:#999; font-size:0.7rem; margin-top:20px; text-decoration:underline; cursor:pointer;">
+            VER TODA LA GALERÍA
+        </button>
+    </div>
+
+    <div id="status">🐾 Cargando momentos...</div>
+    <div id="gallery" class="gallery"></div>
 </main>
 
 <script>
     const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
 
-    // Detección de navegador interno (WhatsApp/FB/IG)
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isLocked = /FBAN|FBAV|Instagram|WhatsApp/.test(ua);
-
-    if (isLocked) {
-        document.getElementById('unlockBtn').style.display = 'block';
-        const camBtn = document.getElementById('cameraBtn');
-        camBtn.style.opacity = "0.5";
-        camBtn.innerText = "CÁMARA BLOQUEADA 🔒";
+    function copiarLink() {
+        navigator.clipboard.writeText("recorre.club/fotos");
+        alert("¡Link copiado! Pégalo en Chrome o Safari.");
     }
 
-    function forzarSalida() {
-        const url = window.location.href.split('://')[1];
-        if (/Android/i.test(ua)) {
-            // MÉTODO 1: Intent directo a Chrome
-            window.location.href = "intent://" + url + "#Intent;scheme=https;action=android.intent.action.VIEW;package=com.android.chrome;end";
-            
-            // MÉTODO 2: Backup si el anterior falla (en 500ms)
-            setTimeout(() => {
-                window.location.href = "googlechrome://navigate?url=" + window.location.href;
-            }, 500);
-        } else {
-            alert("En iPhone: Toca el botón 'Compartir' (cuadrado con flecha) y selecciona 'Abrir en Safari'");
-        }
+    function lanzarCamara(tipo) {
+        const input = document.getElementById('fileInput');
+        // 'user' intenta abrir la cámara frontal, vacío abre la galería
+        input.setAttribute('capture', tipo === 'user' ? 'user' : '');
+        input.click();
     }
 
-    function abrirCamara() {
-        if (isLocked) {
-            forzarSalida();
-            return;
-        }
-        document.getElementById('fileInput').click();
-    }
-
-    // Funciones de búsqueda (Misma lógica funcional)
     async function buscarDorsal() {
-        const n = document.getElementById('dorsal').value;
-        if(!n) return;
+        const val = document.getElementById('numDorsal').value;
+        if(!val) return;
         document.getElementById('status').innerText = "🔍 Buscando...";
-        const { data } = await _supabase.from('fotos').select('*').filter('dorsales', 'cs', `["${n}"]`);
+        const { data } = await _supabase.from('fotos').select('*').filter('dorsales', 'cs', `["${val}"]`);
         mostrar(data);
     }
 
     async function procesarIA(event) {
         const file = event.target.files[0];
         if(!file) return;
-        document.getElementById('status').innerText = "🤳 Analizando...";
+
+        document.getElementById('status').innerText = "🤳 IA analizando rostro...";
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = async () => {
@@ -120,7 +131,7 @@
                     document.getElementById('status').innerText = "❌ No hay coincidencias.";
                 }
             } catch (e) {
-                document.getElementById('status').innerText = "❌ Error de conexión.";
+                document.getElementById('status').innerText = "❌ Error al conectar con la IA.";
             }
         };
     }
@@ -128,16 +139,17 @@
     function mostrar(fotos) {
         const g = document.getElementById('gallery');
         g.innerHTML = "";
-        document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin resultados.";
+        document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin fotos aún.";
         fotos.forEach(f => {
-            g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="thumb"></a>`;
+            g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="photo" loading="lazy"></a>`;
         });
     }
 
     window.onload = async () => {
-        const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(6);
+        const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(20);
         mostrar(data);
-    }
+        document.getElementById('status').innerText = "✨ Galería Reciente";
+    };
 </script>
 </body>
 </html>
