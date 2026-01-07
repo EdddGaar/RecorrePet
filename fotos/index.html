@@ -3,88 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DEBUG | Re Corre Pet</title>
+    <title>Busca tus Fotos | Re Corre Pet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        button { width: 100%; padding: 15px; margin: 10px 0; border: none; border-radius: 8px; font-weight: bold; background: #1D71B8; color: white; }
+        :root { --azul: #1D71B8; --naranja: #E94E1B; --fondo: #f4f7f9; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--fondo); text-align: center; color: #333; }
+        .header { width: 100%; height: 140px; background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center/contain no-repeat white; border-bottom: 5px solid var(--azul); }
+        .container { padding: 15px; max-width: 450px; margin: 0 auto; }
+        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -30px; }
         
-        /* CONSOLA DE LOGS EN PANTALLA */
-        #debug-console { 
-            background: #222; color: #0f0; font-family: monospace; font-size: 10px; 
-            padding: 10px; margin-top: 20px; border-radius: 10px; 
-            height: 150px; overflow-y: scroll; text-align: left;
+        /* BOTÓN DE ESCAPE CRÍTICO */
+        .btn-unlock { 
+            display: none; background: #00c853; color: white; padding: 20px; 
+            border-radius: 15px; text-decoration: none; font-weight: 900; 
+            margin-bottom: 20px; border: none; width: 100%; font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,200,83,0.4);
         }
+        
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .btn-azul { background: var(--azul); color: white; }
+        .btn-naranja { background: var(--naranja); color: white; }
+        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; margin-top: 10px; font-size: 16px; font-family: 'Montserrat'; }
+        #gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .thumb { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; border-bottom: 3px solid var(--azul); }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h3>🔍 Panel de Diagnóstico</h3>
-        <p id="browser-info" style="font-size: 10px; color: #666;"></p>
+<div class="header"></div>
+
+<main class="container">
+    <button id="unlockBtn" class="btn-unlock" onclick="forzarSalida()">
+        🔓 DESBLOQUEAR CÁMARA AHORA
+    </button>
+
+    <div class="card" id="mainCard">
+        <h1 style="color:var(--azul); font-size:1.4rem; margin-bottom:15px; font-weight:900;">RE CORRE PET</h1>
         
-        <button onclick="fixBrowser()" style="background: #00C853;">1. PROBAR SALTO (INTENT)</button>
-        <button onclick="abrirCamara()">2. PROBAR CÁMARA</button>
-        
-        <input type="file" id="fileIn" accept="image/*" style="display:none" onchange="log('Archivo seleccionado!')">
+        <input type="number" id="dorsal" placeholder="Número de dorsal" inputmode="numeric">
+        <button class="btn btn-naranja" onclick="buscarDorsal()">Buscar por Dorsal</button>
+
+        <div style="margin: 25px 0; height: 1px; background: #eee;"></div>
+
+        <button class="btn btn-azul" id="cameraBtn" onclick="abrirCamara()">
+            📸 BUSCAR POR ROSTRO
+        </button>
+        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
     </div>
 
-    <div id="debug-console">--- SISTEMA DE LOGS INICIADO ---<br></div>
+    <div id="status" style="margin-top:20px; font-weight:700; color:var(--azul);"></div>
+    <div id="gallery"></div>
+</main>
 
-    <script>
-        const consoleDiv = document.getElementById('debug-console');
-        const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
+<script>
+    const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
 
-        function log(msg) {
-            const t = new Date().toLocaleTimeString();
-            consoleDiv.innerHTML += `[${t}] ${msg}<br>`;
-            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+    // Detectar si estamos en el navegador "jaula"
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isLocked = /FBAN|FBAV|Instagram|WhatsApp/.test(ua);
+
+    if (isLocked) {
+        document.getElementById('unlockBtn').style.display = 'block';
+        document.getElementById('cameraBtn').innerText = "CÁMARA BLOQUEADA 🔒";
+        document.getElementById('cameraBtn').style.opacity = "0.5";
+    }
+
+    function forzarSalida() {
+        // Enlace especial que obliga a Android a preguntar con qué navegador abrir
+        const url = window.location.href;
+        if (/Android/i.test(ua)) {
+            // Este es el único comando que WhatsApp no puede ignorar en Android
+            window.location.href = "intent://" + url.split('://')[1] + "#Intent;scheme=https;action=android.intent.action.VIEW;package=com.android.chrome;end";
+        } else {
+            alert("En iPhone: Toca el icono de compartir (cuadrado con flecha) y elige 'Abrir en Safari'");
         }
+    }
 
-        // Detectar User Agent
-        const ua = navigator.userAgent;
-        document.getElementById('browser-info').innerText = ua;
-        log("UserAgent detectado.");
+    function abrirCamara() {
+        if (isLocked) {
+            forzarSalida();
+            return;
+        }
+        document.getElementById('fileInput').click();
+    }
 
-        function fixBrowser() {
-            log("Intentando salto 'intent://'...");
+    async function buscarDorsal() {
+        const n = document.getElementById('dorsal').value;
+        if(!n) return;
+        document.getElementById('status').innerText = "🔍 Buscando...";
+        const { data } = await _supabase.from('fotos').select('*').filter('dorsales', 'cs', `["${n}"]`);
+        mostrar(data);
+    }
+
+    async function procesarIA(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        document.getElementById('status').innerText = "🤳 Analizando...";
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = async () => {
+            const b64 = reader.result.split(',')[1];
             try {
-                const url = "intent://" + window.location.host + window.location.pathname + "#Intent;scheme=https;package=com.android.chrome;end";
-                log("URL generada: " + url);
-                window.location.href = url;
-                
-                // Si después de 2 segundos sigue aquí, es que el intent falló
-                setTimeout(() => {
-                    log("⚠️ El salto falló. Intentando método alternativo...");
-                    window.open("https://googlechrome.google.com/test", "_blank");
-                }, 2000);
+                const { data } = await _supabase.functions.invoke('buscar-por-rostro', { body: { image: b64 } });
+                if(data?.matches?.length > 0) {
+                    const { data: fotos } = await _supabase.from('fotos').select('*').in('face_id', data.matches);
+                    mostrar(fotos);
+                } else {
+                    document.getElementById('status').innerText = "❌ No hay coincidencias.";
+                }
             } catch (e) {
-                log("ERROR en fixBrowser: " + e.message);
+                document.getElementById('status').innerText = "❌ Error en el servidor.";
             }
-        }
-
-        function abrirCamara() {
-            log("Solicitando clic en input file...");
-            const input = document.getElementById('fileIn');
-            
-            if (!input) {
-                log("❌ ERROR: No se encontró el elemento fileIn");
-                return;
-            }
-
-            try {
-                input.click();
-                log("✅ Ejecutado: input.click()");
-            } catch (e) {
-                log("❌ ERROR al abrir cámara: " + e.message);
-            }
-        }
-
-        // Capturar errores globales del sistema
-        window.onerror = function(m, u, l) {
-            log(`CRASH: ${m} en línea ${l}`);
         };
-    </script>
+    }
+
+    function mostrar(fotos) {
+        const g = document.getElementById('gallery');
+        g.innerHTML = "";
+        document.getElementById('status').innerText = fotos.length > 0 ? `✨ ¡Encontramos ${fotos.length} fotos!` : "🐾 Sin resultados.";
+        fotos.forEach(f => {
+            g.innerHTML += `<a href="${f.url_foto}" target="_blank"><img src="${f.url_foto}" class="thumb"></a>`;
+        });
+    }
+
+    window.onload = async () => {
+        const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(10);
+        mostrar(data);
+    }
+</script>
 </body>
 </html>
