@@ -3,161 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RecorrePet - Busca tus fotos</title>
+    <title>Busca tus Fotos | Re Corre Pet 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
+        :root {
+            --azul: #1D71B8;
+            --naranja: #E94E1B;
+            --blanco: #ffffff;
+            --fondo: #fcfcfc;
+            --shadow-md: 0 8px 20px rgba(29, 113, 184, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--fondo);
             color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Fondo de Partículas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #ffffff;
+        }
+
+        /* Banner Header con tu imagen de GitHub */
+        .hero-banner {
+            width: 100%;
+            height: clamp(150px, 25vh, 300px);
+            background: url('https://raw.githubusercontent.com/EdddGaar/RecorrePet/main/WallPet.png') center / contain no-repeat;
+            background-color: white;
+            border-bottom: 4px solid var(--azul);
+            box-shadow: var(--shadow-md);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
             text-align: center;
         }
-        #header {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        h1 {
+            color: var(--naranja);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
         }
-        #search-container {
-            margin-bottom: 20px;
+
+        .search-box {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 500px;
         }
-        #search-input {
-            padding: 10px;
-            width: 80%;
-            max-width: 300px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-right: 10px;
-            font-size: 16px;
+
+        input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--azul);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            box-shadow: var(--shadow-md);
         }
-        #search-button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
+
+        button {
+            background-color: var(--naranja);
             color: white;
             border: none;
-            border-radius: 4px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 900;
             cursor: pointer;
-            font-size: 16px;
+            text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px rgba(233, 78, 27, 0.3);
         }
-        #search-button:hover {
-            background-color: #45a049;
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(233, 78, 27, 0.4);
         }
+
+        /* Galería */
         #gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
+
         .photo-card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
-            text-align: left;
-            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
         }
+
+        .photo-card:hover {
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .photo-card img {
             width: 100%;
-            height: auto;
-            border-radius: 4px;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--azul);
+        }
+
+        .photo-info {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .dorsal-tag {
+            display: inline-block;
+            background: var(--azul);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
             margin-bottom: 10px;
         }
-        .photo-card .dorsales {
-            font-weight: bold;
-            color: #007BFF;
-            margin-bottom: 5px;
+
+        .btn-download {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: var(--azul);
+            font-weight: 900;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border: 1px solid var(--azul);
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.3s;
         }
-        .photo-card .url {
-            font-size: 0.8em;
+
+        .btn-download:hover {
+            background: var(--azul);
+            color: white;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 40px;
             color: #666;
-            word-break: break-all;
-        }
-        #no-results {
-            margin-top: 30px;
-            font-size: 1.2em;
-            color: #777;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
-    <div id="header">
-        <h1>🐾 RecorrePet 🐾</h1>
-        <p>Encuentra las fotos de tu mejor amigo</p>
-    </div>
+    <div id="particles-js"></div>
 
-    <div id="search-container">
-        <input type="text" id="search-input" placeholder="Ingresa el número de dorsal (ej. 19)">
-        <button id="search-button">Buscar</button>
-    </div>
+    <header class="hero-banner"></header>
 
-    <div id="gallery"></div>
-    <div id="no-results" style="display: none;">No se encontraron fotos con ese dorsal. ¡Intenta con otro número!</div>
+    <main class="container">
+        <h1>Busca tus fotos</h1>
+        <p style="color: var(--azul); font-weight: 700;">Introduce tu número de dorsal para revivir la carrera</p>
 
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Ej: 276">
+            <button onclick="buscarFotos()">Buscar</button>
+        </div>
+
+        <div id="gallery"></div>
+        <div id="noResults" style="display:none; margin-top: 40px; font-weight: 700; color: #999;">
+            🐾 No encontramos fotos con ese número. ¡Prueba con otro!
+        </div>
+    </main>
+
+    <footer>
+        <p>RECORRE.CLUB - Todos los derechos reservados © 2026</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // CONFIGURACIÓN DE SUPABASE (TUS LLAVES)
-        const SUPABASE_URL = 'https://fjdkteumrfeiaprgumsa.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI';
+        // CONFIGURACIÓN SUPABASE
+        const supabase = supabase.createClient(
+            'https://fjdkteumrfeiaprgumsa.supabase.co', 
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI'
+        );
 
-        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        async function buscarFotos() {
+            const query = document.getElementById('searchInput').value.trim();
+            const gallery = document.getElementById('gallery');
+            const noResults = document.getElementById('noResults');
 
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const gallery = document.getElementById('gallery');
-        const noResultsMessage = document.getElementById('no-results');
+            gallery.innerHTML = '<p>Buscando momentos increíbles...</p>';
+            noResults.style.display = 'none';
 
-        async function fetchPhotos(dorsal = '') {
-            gallery.innerHTML = ''; // Limpiar galería
-            noResultsMessage.style.display = 'none'; // Ocultar mensaje de no resultados
-
-            let query = supabase.from('fotos').select('*');
-
-            if (dorsal) {
-                // Buscamos si el dorsal está en el array JSONB
-                query = query.filter('dorsales', 'cs', `["${dorsal}"]`);
-            }
+            let request = supabase.from('fotos').select('*');
             
-            const { data, error } = await query;
-
-            if (error) {
-                console.error('Error fetching photos:', error);
-                alert('Hubo un error al buscar las fotos. Intenta de nuevo más tarde.');
-                return;
+            if (query) {
+                request = request.filter('dorsales', 'cs', `["${query}"]`);
             }
 
-            if (data.length === 0) {
-                noResultsMessage.style.display = 'block';
-                return;
-            }
+            const { data, error } = await request;
 
-            data.forEach(photo => {
-                const card = document.createElement('div');
-                card.className = 'photo-card';
-                card.innerHTML = `
-                    <img src="${photo.url_foto}" alt="Foto de ${photo.dorsales.join(', ')}">
-                    <div class="dorsales">Dorsal(es): ${photo.dorsales.join(', ')}</div>
-                    <a href="${photo.url_foto}" target="_blank" class="url">Ver original</a>
-                `;
-                gallery.appendChild(card);
-            });
+            gallery.innerHTML = '';
+            if (data && data.length > 0) {
+                data.forEach((foto, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'photo-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.innerHTML = `
+                        <img src="${foto.url_foto}" alt="Foto RecorrePet">
+                        <div class="photo-info">
+                            <span class="dorsal-tag">Dorsales: ${foto.dorsales.join(', ')}</span>
+                            <a href="${foto.url_foto}" target="_blank" class="btn-download">DESCARGAR FOTO</a>
+                        </div>
+                    `;
+                    gallery.appendChild(card);
+                });
+            } else {
+                noResults.style.display = 'block';
+            }
         }
 
-        // Cargar todas las fotos al inicio (o ninguna si prefieres que busquen)
-        fetchPhotos(); 
+        // Cargar fotos iniciales
+        buscarFotos();
 
-        searchButton.addEventListener('click', () => {
-            const dorsal = searchInput.value.trim();
-            fetchPhotos(dorsal);
-        });
-
-        // Permitir búsqueda al presionar Enter
-        searchInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                searchButton.click();
-            }
+        // Efecto Partículas (Igual al de tu index principal)
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#1D71B8" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3 },
+                "size": { "value": 3 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#1D71B8", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2 }
+            },
+            "retina_detect": true
         });
     </script>
 </body>
