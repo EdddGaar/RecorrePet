@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecorrePet - Busca tus fotos</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        #header {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #search-container {
+            margin-bottom: 20px;
+        }
+        #search-input {
+            padding: 10px;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        #search-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #search-button:hover {
+            background-color: #45a049;
+        }
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .photo-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: left;
+            padding: 10px;
+        }
+        .photo-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .photo-card .dorsales {
+            font-weight: bold;
+            color: #007BFF;
+            margin-bottom: 5px;
+        }
+        .photo-card .url {
+            font-size: 0.8em;
+            color: #666;
+            word-break: break-all;
+        }
+        #no-results {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>🐾 RecorrePet 🐾</h1>
+        <p>Encuentra las fotos de tu mejor amigo</p>
+    </div>
+
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Ingresa el número de dorsal (ej. 19)">
+        <button id="search-button">Buscar</button>
+    </div>
+
+    <div id="gallery"></div>
+    <div id="no-results" style="display: none;">No se encontraron fotos con ese dorsal. ¡Intenta con otro número!</div>
+
+    <script>
+        // CONFIGURACIÓN DE SUPABASE (TUS LLAVES)
+        const SUPABASE_URL = 'https://fjdkteumrfeiaprgumsa.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI';
+
+        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const gallery = document.getElementById('gallery');
+        const noResultsMessage = document.getElementById('no-results');
+
+        async function fetchPhotos(dorsal = '') {
+            gallery.innerHTML = ''; // Limpiar galería
+            noResultsMessage.style.display = 'none'; // Ocultar mensaje de no resultados
+
+            let query = supabase.from('fotos').select('*');
+
+            if (dorsal) {
+                // Buscamos si el dorsal está en el array JSONB
+                query = query.filter('dorsales', 'cs', `["${dorsal}"]`);
+            }
+            
+            const { data, error } = await query;
+
+            if (error) {
+                console.error('Error fetching photos:', error);
+                alert('Hubo un error al buscar las fotos. Intenta de nuevo más tarde.');
+                return;
+            }
+
+            if (data.length === 0) {
+                noResultsMessage.style.display = 'block';
+                return;
+            }
+
+            data.forEach(photo => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                card.innerHTML = `
+                    <img src="${photo.url_foto}" alt="Foto de ${photo.dorsales.join(', ')}">
+                    <div class="dorsales">Dorsal(es): ${photo.dorsales.join(', ')}</div>
+                    <a href="${photo.url_foto}" target="_blank" class="url">Ver original</a>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+
+        // Cargar todas las fotos al inicio (o ninguna si prefieres que busquen)
+        fetchPhotos(); 
+
+        searchButton.addEventListener('click', () => {
+            const dorsal = searchInput.value.trim();
+            fetchPhotos(dorsal);
+        });
+
+        // Permitir búsqueda al presionar Enter
+        searchInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
