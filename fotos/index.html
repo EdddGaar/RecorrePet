@@ -23,21 +23,22 @@
 
         .container { padding: 15px; max-width: 500px; margin: 0 auto; }
 
-        /* --- GUÍA DE AYUDA PARA CÁMARA --- */
+        /* --- GUÍA DE AYUDA ACTUALIZADA --- */
         .browser-help {
             background: #fff3cd;
             border: 2px solid #ffeeba;
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #856404;
+            text-align: center;
         }
-        .browser-help b { color: #000; font-size: 0.9rem; display: block; margin-bottom: 5px; text-align: center;}
+        .browser-help b { color: #000; font-size: 1rem; display: block; margin-bottom: 8px; }
         
-        .instrucciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .platform { background: rgba(255,255,255,0.5); padding: 8px; border-radius: 8px; }
-        .platform i { display: block; margin-bottom: 5px; font-weight: 900; color: #000; }
+        .instrucciones { text-align: left; background: rgba(255,255,255,0.4); padding: 10px; border-radius: 10px; line-height: 1.4; }
+        .instrucciones p { margin-bottom: 8px; }
+        .instrucciones p:last-child { margin-bottom: 0; }
 
         /* --- TARJETA PRINCIPAL --- */
         .main-card {
@@ -80,18 +81,13 @@
     <main class="container">
         
         <div class="browser-help">
-            <b>⚠️ ¡IMPORTANTE PARA USAR LA CÁMARA!</b>
-            Si estás en WhatsApp/Facebook, la cámara no funcionará hasta que hagas esto:
+            <b>⚠️ ¡AVISO PARA LA CÁMARA!</b>
+            Si vienes de WhatsApp o Facebook y la cámara no abre, sigue estos pasos:
             
             <div class="instrucciones">
-                <div class="platform">
-                    <i>🤖 ANDROID</i>
-                    Toca los 3 puntos <b>(⋮)</b> y busca <b>"Abrir en el navegador"</b> o el icono del mundo 🌐.
-                </div>
-                <div class="platform">
-                    <i>🍎 iPHONE</i>
-                    Toca el icono de compartir <b>(📤)</b> y busca <b>"Abrir en Safari"</b>.
-                </div>
+                <p>1. Toca los <b>tres puntos (⋮)</b> o el botón <b>Compartir</b>.</p>
+                <p>2. Selecciona la opción <b>"Agregar a pantalla princ."</b> o <b>"Abrir en el navegador"</b>.</p>
+                <p>3. Esto permitirá que tu celular te pida permiso para usar la cámara.</p>
             </div>
         </div>
 
@@ -117,10 +113,10 @@
             </div>
             <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="procesarIA(event)">
 
-            <button class="btn footer-btn" onclick="location.reload()">REINICIAR GALERÍA</button>
+            <button class="btn footer-btn" onclick="location.reload()">VER TODA LA GALERÍA</button>
         </div>
 
-        <div id="status">🐾 Cargando momentos...</div>
+        <div id="status">🐾 Cargando fotos...</div>
         <div id="gallery" class="gallery"></div>
 
     </main>
