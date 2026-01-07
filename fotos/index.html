@@ -14,13 +14,13 @@
         .container { padding: 15px; max-width: 450px; margin: 0 auto; }
         .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: -30px; }
         
-        /* BOTÓN DE ESCAPE CRÍTICO */
-        .btn-unlock { 
-            display: none; background: #00c853; color: white; padding: 20px; 
-            border-radius: 15px; text-decoration: none; font-weight: 900; 
-            margin-bottom: 20px; border: none; width: 100%; font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0,200,83,0.4);
+        /* BOTÓN DE ESCAPE SI HAY BLOQUEO */
+        #unlockBtn { 
+            display: none; background: #00c853; color: white; padding: 18px; 
+            border-radius: 15px; font-weight: 900; margin-bottom: 20px; border: none; 
+            width: 100%; font-size: 1rem; cursor: pointer; animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
         
         .btn { width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
         .btn-azul { background: var(--azul); color: white; }
@@ -35,15 +35,15 @@
 <div class="header"></div>
 
 <main class="container">
-    <button id="unlockBtn" class="btn-unlock" onclick="forzarSalida()">
-        🔓 DESBLOQUEAR CÁMARA AHORA
+    <button id="unlockBtn" onclick="forzarSalida()">
+        🔓 TOCAR AQUÍ PARA HABILITAR CÁMARA
     </button>
 
-    <div class="card" id="mainCard">
+    <div class="card">
         <h1 style="color:var(--azul); font-size:1.4rem; margin-bottom:15px; font-weight:900;">RE CORRE PET</h1>
         
         <input type="number" id="dorsal" placeholder="Número de dorsal" inputmode="numeric">
-        <button class="btn btn-naranja" onclick="buscarDorsal()">Buscar por Dorsal</button>
+        <button class="btn btn-naranja" onclick="buscarDorsal()">BUSCAR POR DORSAL</button>
 
         <div style="margin: 25px 0; height: 1px; background: #eee;"></div>
 
@@ -60,24 +60,29 @@
 <script>
     const _supabase = supabase.createClient('https://fjdkteumrfeiaprgumsa.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqZGt0ZXVtcmZlaWFwcmd1bXNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc3MjY1ODMsImV4cCI6MjA4MzMwMjU4M30.6Nt1DzfHjx7xdZPfpiatngxC6E00MBHFVYA-aPLPfAI');
 
-    // Detectar si estamos en el navegador "jaula"
+    // Detección de navegador interno (WhatsApp/FB/IG)
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isLocked = /FBAN|FBAV|Instagram|WhatsApp/.test(ua);
 
     if (isLocked) {
         document.getElementById('unlockBtn').style.display = 'block';
-        document.getElementById('cameraBtn').innerText = "CÁMARA BLOQUEADA 🔒";
-        document.getElementById('cameraBtn').style.opacity = "0.5";
+        const camBtn = document.getElementById('cameraBtn');
+        camBtn.style.opacity = "0.5";
+        camBtn.innerText = "CÁMARA BLOQUEADA 🔒";
     }
 
     function forzarSalida() {
-        // Enlace especial que obliga a Android a preguntar con qué navegador abrir
-        const url = window.location.href;
+        const url = window.location.href.split('://')[1];
         if (/Android/i.test(ua)) {
-            // Este es el único comando que WhatsApp no puede ignorar en Android
-            window.location.href = "intent://" + url.split('://')[1] + "#Intent;scheme=https;action=android.intent.action.VIEW;package=com.android.chrome;end";
+            // MÉTODO 1: Intent directo a Chrome
+            window.location.href = "intent://" + url + "#Intent;scheme=https;action=android.intent.action.VIEW;package=com.android.chrome;end";
+            
+            // MÉTODO 2: Backup si el anterior falla (en 500ms)
+            setTimeout(() => {
+                window.location.href = "googlechrome://navigate?url=" + window.location.href;
+            }, 500);
         } else {
-            alert("En iPhone: Toca el icono de compartir (cuadrado con flecha) y elige 'Abrir en Safari'");
+            alert("En iPhone: Toca el botón 'Compartir' (cuadrado con flecha) y selecciona 'Abrir en Safari'");
         }
     }
 
@@ -89,6 +94,7 @@
         document.getElementById('fileInput').click();
     }
 
+    // Funciones de búsqueda (Misma lógica funcional)
     async function buscarDorsal() {
         const n = document.getElementById('dorsal').value;
         if(!n) return;
@@ -114,7 +120,7 @@
                     document.getElementById('status').innerText = "❌ No hay coincidencias.";
                 }
             } catch (e) {
-                document.getElementById('status').innerText = "❌ Error en el servidor.";
+                document.getElementById('status').innerText = "❌ Error de conexión.";
             }
         };
     }
@@ -129,7 +135,7 @@
     }
 
     window.onload = async () => {
-        const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(10);
+        const { data } = await _supabase.from('fotos').select('*').order('created_at', { ascending: false }).limit(6);
         mostrar(data);
     }
 </script>
