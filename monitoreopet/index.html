@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #0f172a;
@@ -15,138 +14,91 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Ocupa exactamente el alto de la pantalla */
-            overflow: hidden; /* Evita el scroll innecesario */
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
         }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            text-align: center;
-        }
-
+        .container { width: 90%; max-width: 1000px; text-align: center; }
         h1 {
-            font-weight: 800;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-weight: 800; font-size: 2.5rem; margin-bottom: 40px;
             background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
-
         .stat-card {
             background: rgba(30, 41, 59, 0.8);
             border-radius: 20px;
             padding: 35px 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
         }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: #38bdf8;
-        }
-
-        .stat-card h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #94a3b8;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-        }
-
-        .stat-card p {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #38bdf8;
-            line-height: 1;
-        }
-
-        /* Colores temáticos */
-        .card-ws p { color: #22c55e; }    /* Verde WhatsApp */
-        .card-form p { color: #6366f1; }  /* Morado Form */
-        .card-qr p { color: #f59e0b; }    /* Ámbar QR */
-
-        #lastUpdate {
-            margin-top: 40px;
-            font-size: 0.85rem;
-            color: #64748b;
-            font-style: italic;
-        }
+        .stat-card h3 { font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1.5px; margin-bottom: 15px; }
+        .stat-card p { font-size: 3.5rem; font-weight: 800; color: #38bdf8; line-height: 1; }
+        .card-ws p { color: #22c55e; }
+        .card-form p { color: #6366f1; }
+        .card-qr p { color: #f59e0b; }
+        #lastUpdate { margin-top: 40px; font-size: 0.85rem; color: #64748b; font-style: italic; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>🐾 Recorre Pet 2026</h1>
-    
     <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Participantes</h3>
-            <p id="total">--</p>
-        </div>
-
-        <div class="stat-card card-ws">
-            <h3>WhatsApp Bot</h3>
-            <p id="countWhatsApp">--</p>
-        </div>
-
-        <div class="stat-card card-form">
-            <h3>Google Forms</h3>
-            <p id="countForm">--</p>
-        </div>
-
-        <div class="stat-card card-qr">
-            <h3>QRs Listos</h3>
-            <p id="countQRs">--</p>
-        </div>
+        <div class="stat-card"><h3>Participantes</h3><p id="total">0</p></div>
+        <div class="stat-card card-ws"><h3>WhatsApp Bot</h3><p id="countWhatsApp">0</p></div>
+        <div class="stat-card card-form"><h3>Google Forms</h3><p id="countForm">0</p></div>
+        <div class="stat-card card-qr"><h3>QRs Listos</h3><p id="countQRs">0</p></div>
     </div>
-
-    <p id="lastUpdate">Sincronizando con la nube...</p>
+    <p id="lastUpdate">Iniciando...</p>
 </div>
 
 <script>
+    // URL Directa (Sin Proxy)
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3wyQ_tfQmKbolsMwfrQwflaXkc3FcThL6KnSU-6YA2YCJNr5fA9ecEeE5gyiB4KD59DlYQ211Jhjr/pub?gid=1537165169&single=true&output=csv";
-    const proxiedUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(csvUrl)}`;
 
     async function updateMonitor() {
         try {
-            const res = await fetch(proxiedUrl);
-            if (!res.ok) throw new Error('Error de red');
-            const text = await res.text();
+            // Agregamos un timestamp para evitar que el navegador guarde una copia vieja (cache)
+            const response = await fetch(`${csvUrl}&cachebuster=${new Date().getTime()}`);
+            if (!response.ok) throw new Error('Error al conectar con Google');
             
-            // Parseo de CSV considerando comillas
-            const rows = text.split("\n").map(r => r.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c => c.replace(/(^"|"$)/g,'')));
-            const data = rows.slice(1).filter(r => r.length > 1);
+            const text = await response.text();
             
-            // Índices basados en tu Sheet:
-            // Col V (21): Origen
-            // Col X (23): Status QR (✅)
+            // Procesar filas del CSV
+            const rows = text.split("\n").map(row => {
+                // Limpiar comillas y dividir por comas
+                return row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(cell => cell.replace(/(^"|"$)/g, '').trim());
+            });
+
+            // Filtrar filas vacías (mantener solo las que tienen datos)
+            const data = rows.slice(1).filter(r => r.length > 5);
+            
+            // Conteo según tus columnas:
+            // Col V (índice 21): Origen
+            // Col X (índice 23): QR Status
             const total = data.length;
-            const ws = data.filter(r => r[21]?.toLowerCase().includes('whats')).length;
-            const form = data.filter(r => r[21]?.toLowerCase().includes('form')).length;
-            const qrs = data.filter(r => r[23]?.includes('✅')).length;
+            const ws = data.filter(r => r[21] && r[21].toLowerCase().includes('whats')).length;
+            const form = data.filter(r => r[21] && r[21].toLowerCase().includes('form')).length;
+            const qrs = data.filter(r => r[23] && r[23].includes('✅')).length;
 
-            // Actualizar DOM
-            document.getElementById("total").textContent = total;
-            document.getElementById("countWhatsApp").textContent = ws;
-            document.getElementById("countForm").textContent = form;
-            document.getElementById("countQRs").textContent = qrs;
-            document.getElementById("lastUpdate").textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
+            // Actualizar la pantalla
+            document.getElementById("total").innerText = total;
+            document.getElementById("countWhatsApp").innerText = ws;
+            document.getElementById("countForm").innerText = form;
+            document.getElementById("countQRs").innerText = qrs;
+            document.getElementById("lastUpdate").innerText = 'Actualizado: ' + new Date().toLocaleTimeString();
 
-        } catch (e) {
-            console.error("Error al sincronizar:", e);
-            document.getElementById("lastUpdate").textContent = '⚠️ Error al conectar con los datos';
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("lastUpdate").innerText = '⚠️ Error de conexión. Reintentando...';
         }
     }
 
-    // Ejecutar cada 5 segundos
+    // Actualizar cada 5 segundos
     updateMonitor();
     setInterval(updateMonitor, 5000);
 </script>
