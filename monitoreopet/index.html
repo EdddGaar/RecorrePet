@@ -1,144 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Monitor | Recorre Pet 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor En Vivo | Recorre Pet 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Ocupa exactamente el alto de la pantalla */
+            overflow: hidden; /* Evita el scroll innecesario */
+        }
 
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: #0f172a;
-    color: #f8fafc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    text-align: center;
-  }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+        }
 
-  .container {
-    max-width: 900px;
-    width: 95%;
-    padding: 20px;
-  }
+        h1 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-  h1 {
-    font-weight: 800;
-    font-size: 2.2em;
-    margin-bottom: 30px;
-    background: linear-gradient(to right, #38bdf8, #818cf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 35px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
 
-  .stat-card {
-    background: rgba(30, 41, 59, 0.8);
-    border-radius: 20px;
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
 
-  .stat-card h3 {
-    font-size: 0.9em;
-    text-transform: uppercase;
-    color: #94a3b8;
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-  }
+        .stat-card h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+        }
 
-  .stat-card p {
-    font-size: 3.5em;
-    font-weight: 800;
-    color: #38bdf8;
-  }
+        .stat-card p {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #38bdf8;
+            line-height: 1;
+        }
 
-  /* Colores específicos para distinguir origen */
-  .card-ws p { color: #22c55e; } /* Verde WhatsApp */
-  .card-form p { color: #6366f1; } /* Morado/Azul Form */
+        /* Colores temáticos */
+        .card-ws p { color: #22c55e; }    /* Verde WhatsApp */
+        .card-form p { color: #6366f1; }  /* Morado Form */
+        .card-qr p { color: #f59e0b; }    /* Ámbar QR */
 
-  #lastUpdate {
-    margin-top: 40px;
-    font-size: 0.8em;
-    color: #64748b;
-  }
-
-  .loader {
-    font-size: 0.9em;
-    color: #38bdf8;
-    margin-bottom: 10px;
-  }
-</style>
+        #lastUpdate {
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: #64748b;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>🐾 Recorre Pet 2026</h1>
-  
-  <div class="stats-grid">
-    <div class="stat-card">
-      <h3>Participantes Totales</h3>
-      <p id="total">--</p>
+    <h1>🐾 Recorre Pet 2026</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Participantes</h3>
+            <p id="total">--</p>
+        </div>
+
+        <div class="stat-card card-ws">
+            <h3>WhatsApp Bot</h3>
+            <p id="countWhatsApp">--</p>
+        </div>
+
+        <div class="stat-card card-form">
+            <h3>Google Forms</h3>
+            <p id="countForm">--</p>
+        </div>
+
+        <div class="stat-card card-qr">
+            <h3>QRs Listos</h3>
+            <p id="countQRs">--</p>
+        </div>
     </div>
 
-    <div class="stat-card card-ws">
-      <h3>Inscritos WhatsApp</h3>
-      <p id="countWhatsApp">--</p>
-    </div>
-
-    <div class="stat-card card-form">
-      <h3>Inscritos Formulario</h3>
-      <p id="countForm">--</p>
-    </div>
-  </div>
-
-  <p id="lastUpdate">Sincronizando datos...</p>
+    <p id="lastUpdate">Sincronizando con la nube...</p>
 </div>
 
 <script>
-// Tu URL de Google Sheets publicada como CSV
-const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3wyQ_tfQmKbolsMwfrQwflaXkc3FcThL6KnSU-6YA2YCJNr5fA9ecEeE5gyiB4KD59DlYQ211Jhjr/pub?gid=1537165169&single=true&output=csv";
-const proxiedUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(csvUrl)}`;
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3wyQ_tfQmKbolsMwfrQwflaXkc3FcThL6KnSU-6YA2YCJNr5fA9ecEeE5gyiB4KD59DlYQ211Jhjr/pub?gid=1537165169&single=true&output=csv";
+    const proxiedUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(csvUrl)}`;
 
-async function updateMonitor() {
-  try {
-    const res = await fetch(proxiedUrl);
-    const text = await res.text();
-    
-    // Parseo de filas (CSV)
-    const rows = text.split("\n").map(r => r.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c => c.replace(/(^"|"$)/g,'')));
-    const data = rows.slice(1).filter(r => r.length > 1);
-    
-    // Basado en tu estructura: Columna V (índice 21) es el Origen
-    const total = data.length;
-    const ws = data.filter(r => r[21]?.toLowerCase().includes('whats')).length;
-    const form = data.filter(r => r[21]?.toLowerCase().includes('form')).length;
+    async function updateMonitor() {
+        try {
+            const res = await fetch(proxiedUrl);
+            if (!res.ok) throw new Error('Error de red');
+            const text = await res.text();
+            
+            // Parseo de CSV considerando comillas
+            const rows = text.split("\n").map(r => r.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c => c.replace(/(^"|"$)/g,'')));
+            const data = rows.slice(1).filter(r => r.length > 1);
+            
+            // Índices basados en tu Sheet:
+            // Col V (21): Origen
+            // Col X (23): Status QR (✅)
+            const total = data.length;
+            const ws = data.filter(r => r[21]?.toLowerCase().includes('whats')).length;
+            const form = data.filter(r => r[21]?.toLowerCase().includes('form')).length;
+            const qrs = data.filter(r => r[23]?.includes('✅')).length;
 
-    // Actualizar interfaz
-    document.getElementById("total").textContent = total;
-    document.getElementById("countWhatsApp").textContent = ws;
-    document.getElementById("countForm").textContent = form;
-    document.getElementById("lastUpdate").textContent = 'Última sincronización: ' + new Date().toLocaleTimeString();
+            // Actualizar DOM
+            document.getElementById("total").textContent = total;
+            document.getElementById("countWhatsApp").textContent = ws;
+            document.getElementById("countForm").textContent = form;
+            document.getElementById("countQRs").textContent = qrs;
+            document.getElementById("lastUpdate").textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
 
-  } catch (e) {
-    console.error("Error:", e);
-    document.getElementById("lastUpdate").textContent = 'Error de conexión con Google Sheets';
-  }
-}
+        } catch (e) {
+            console.error("Error al sincronizar:", e);
+            document.getElementById("lastUpdate").textContent = '⚠️ Error al conectar con los datos';
+        }
+    }
 
-// Actualización inicial y automática cada 60 segundos
-updateMonitor();
-setInterval(updateMonitor, 60000);
+    // Ejecutar cada 5 segundos
+    updateMonitor();
+    setInterval(updateMonitor, 5000);
 </script>
 
 </body>
