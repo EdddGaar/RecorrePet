@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitor En Vivo | Recorre Pet 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monitor Recorre Pet</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,33 +14,44 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             margin: 0;
+            padding: 10px;
         }
-        .container { width: 90%; max-width: 1000px; text-align: center; }
+        .container { width: 100%; max-width: 1000px; text-align: center; }
         h1 {
-            font-weight: 800; font-size: 2.5rem; margin-bottom: 40px;
+            font-weight: 800; font-size: 1.8rem; margin-bottom: 20px;
             background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+            gap: 10px;
         }
         .stat-card {
             background: rgba(30, 41, 59, 0.8);
-            border-radius: 20px;
-            padding: 35px 20px;
+            border-radius: 15px;
+            padding: 20px 10px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .stat-card h3 { font-size: 0.8rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1.5px; margin-bottom: 15px; }
-        .stat-card p { font-size: 3.5rem; font-weight: 800; color: #38bdf8; line-height: 1; }
+        .stat-card h3 { font-size: 0.65rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 1px; margin-bottom: 10px; }
+        .stat-card p { font-size: 2.2rem; font-weight: 800; color: #38bdf8; line-height: 1; }
+        
+        /* Colores */
         .card-ws p { color: #22c55e; }
         .card-form p { color: #6366f1; }
         .card-qr p { color: #f59e0b; }
-        #lastUpdate { margin-top: 40px; font-size: 0.85rem; color: #64748b; font-style: italic; }
+
+        #lastUpdate { margin-top: 25px; font-size: 0.75rem; color: #64748b; }
+
+        /* Ajuste para PCs o pantallas grandes */
+        @media (min-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            h1 { font-size: 2.5rem; }
+            .stat-card p { font-size: 3.5rem; }
+            .stat-card h3 { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -48,57 +59,55 @@
 <div class="container">
     <h1>🐾 Recorre Pet 2026</h1>
     <div class="stats-grid">
-        <div class="stat-card"><h3>Participantes</h3><p id="total">0</p></div>
-        <div class="stat-card card-ws"><h3>WhatsApp Bot</h3><p id="countWhatsApp">0</p></div>
-        <div class="stat-card card-form"><h3>Google Forms</h3><p id="countForm">0</p></div>
-        <div class="stat-card card-qr"><h3>QRs Listos</h3><p id="countQRs">0</p></div>
+        <div class="stat-card"><h3>Total</h3><p id="total">0</p></div>
+        <div class="stat-card card-ws"><h3>Bot</h3><p id="countWhatsApp">0</p></div>
+        <div class="stat-card card-form"><h3>Forms</h3><p id="countForm">0</p></div>
+        <div class="stat-card card-qr"><h3>QRs</h3><p id="countQRs">0</p></div>
     </div>
-    <p id="lastUpdate">Iniciando...</p>
+    <p id="lastUpdate">Cargando datos en vivo...</p>
 </div>
 
 <script>
-    // URL Directa (Sin Proxy)
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3wyQ_tfQmKbolsMwfrQwflaXkc3FcThL6KnSU-6YA2YCJNr5fA9ecEeE5gyiB4KD59DlYQ211Jhjr/pub?gid=1537165169&single=true&output=csv";
 
     async function updateMonitor() {
         try {
-            // Agregamos un timestamp para evitar que el navegador guarde una copia vieja (cache)
-            const response = await fetch(`${csvUrl}&cachebuster=${new Date().getTime()}`);
-            if (!response.ok) throw new Error('Error al conectar con Google');
+            // El fetch ahora incluye parámetros para engañar al caché del celular
+            const response = await fetch(`${csvUrl}&t=${Date.now()}`, {
+                cache: "no-store",
+                headers: { 'Content-Type': 'text/csv; charset=UTF-8' }
+            });
+
+            if (!response.ok) throw new Error('Error de conexión');
             
             const text = await response.text();
             
-            // Procesar filas del CSV
-            const rows = text.split("\n").map(row => {
-                // Limpiar comillas y dividir por comas
-                return row.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(cell => cell.replace(/(^"|"$)/g, '').trim());
+            // Procesamiento de CSV más simple para navegadores móviles
+            const lines = text.split(/\r?\n/);
+            const data = lines.slice(1).filter(line => line.trim() !== "").map(line => {
+                return line.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(item => item.replace(/^"|"$/g, '').trim());
             });
 
-            // Filtrar filas vacías (mantener solo las que tienen datos)
-            const data = rows.slice(1).filter(r => r.length > 5);
-            
-            // Conteo según tus columnas:
-            // Col V (índice 21): Origen
-            // Col X (índice 23): QR Status
+            // Conteos (Verifica que las columnas 21 y 23 coincidan con tu Sheet)
             const total = data.length;
             const ws = data.filter(r => r[21] && r[21].toLowerCase().includes('whats')).length;
             const form = data.filter(r => r[21] && r[21].toLowerCase().includes('form')).length;
             const qrs = data.filter(r => r[23] && r[23].includes('✅')).length;
 
-            // Actualizar la pantalla
-            document.getElementById("total").innerText = total;
-            document.getElementById("countWhatsApp").innerText = ws;
-            document.getElementById("countForm").innerText = form;
-            document.getElementById("countQRs").innerText = qrs;
-            document.getElementById("lastUpdate").innerText = 'Actualizado: ' + new Date().toLocaleTimeString();
+            // Actualización de UI
+            document.getElementById("total").textContent = total;
+            document.getElementById("countWhatsApp").textContent = ws;
+            document.getElementById("countForm").textContent = form;
+            document.getElementById("countQRs").textContent = qrs;
+            document.getElementById("lastUpdate").textContent = 'Actualizado: ' + new Date().toLocaleTimeString();
 
         } catch (error) {
-            console.error("Error:", error);
-            document.getElementById("lastUpdate").innerText = '⚠️ Error de conexión. Reintentando...';
+            console.error(error);
+            document.getElementById("lastUpdate").textContent = '⚠️ Error de red. Reintentando...';
         }
     }
 
-    // Actualizar cada 5 segundos
+    // Intervalo de 5 segundos
     updateMonitor();
     setInterval(updateMonitor, 5000);
 </script>
